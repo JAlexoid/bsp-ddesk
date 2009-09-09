@@ -1,0 +1,325 @@
+td {
+	font-family: Verdana, Geneva, Arial, helvetica, sans-serif;
+}
+
+th {
+	font-family: Verdana, Geneva, Arial, helvetica, sans-serif;
+}
+
+
+body {
+        font-family: Verdana, Geneva, Arial, helvetica, sans-serif;
+	font-size: 80%;
+        text-align: center;
+}
+#container {
+	width: 890px;
+	margin: 0px auto;
+}
+
+#top {
+	color: #FFFFFF;
+	width: 270px;
+	height: 140px;
+	background-color: #778CB3;
+        text-align: center;
+}
+#topright {
+	height: 140px;
+	width: 591px;
+	text-align: right;
+}
+.cl {
+clear:both;
+}
+#gallery {
+	width: 890px;
+	padding-top: 5px;
+}
+#news {
+	width: 283px;
+/*	height: 492px; 
+	margin-top: 5px;
+	float: left;*/
+	background-color: #778CB3;
+	color: white;
+	padding: 4px;
+        overflow: auto;
+	
+}
+#menu {
+	width: 590px;
+	background-color: #F7CB33;
+	padding: 13px;
+	border-bottom: 5px solid #FFFFFF;
+	float: right;
+}
+#menu a:link, #menu a:visited, #menu a:active {
+	background-color: #F7CB33;
+	padding: 13px;
+	text-decoration: none;
+	color: #000000;
+}
+#menu a:hover {
+	padding: 13px;
+	background-color: #F01E1E;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+#content {
+	width: 590px;
+/*	float: left;
+	height: 500px; */
+	background-color: #A0AFCB;
+    overflow: auto;
+}
+
+
+
+#containerTable {
+	width: 890px;
+	margin-top: 5px;
+        text-align: left;
+
+}
+
+p {
+margin: 0 0 0 0px;
+}
+h1 {
+	padding: 4px;
+	margin: 4px;
+	font-size: 120%;
+	font-weight: bold;
+	color: #FFFFFF;
+	border-bottom-width: 2px;
+	border-bottom-style: dotted;
+	border-bottom-color: #F7CB33;
+}
+h2 {
+	text-align: center;
+	font-size: 300%;
+	font-weight: normal;
+	color: #FFFFFF;
+}
+#pad {
+	padding: 12px;
+	color: white;
+}
+
+#pad table {
+	color: white;
+}
+
+#footer{
+	clear: both;
+	width: 890px;
+	background-color: #A0AFCB;
+	color: #FFFFFF;
+	text-align: left;
+}
+#footer a:link, #footer a:active, #footer a:hover, #footer a:visited {
+	color:#000000;
+}
+h4 {
+	padding: 0px;
+	margin: 0px;
+	font-size: 180%;
+	color: #F01E1E;
+}
+
+form.styled{
+    margin: 0px;
+    padding: 0px;
+}
+
+table.styled{
+    border-top: 1px white solid;
+    border-left: 1px white solid;
+}
+
+table.styled td{
+    border-bottom: 1px white  solid;
+    border-right: 1px white  solid;
+}
+
+table.styled th{
+    border-bottom: 1px white  solid;
+    border-right: 1px white  solid;
+}
+
+
+.error{
+	color: red;
+	font-weight: 900;
+}
+
+.info{
+    color: blue;
+    font-weight: 900;
+}
+
+.framed{
+
+}
+
+.taskNew{
+    background-color: red;
+    color: white;
+    padding: 2px;
+}
+
+.taskAccepted{
+    background-color: green;
+    color: white;
+    padding: 2px;
+}
+
+.taskClosed{
+    background-color: gray;
+    color: white;
+    padding: 2px;
+}
+
+.dataHighlight{
+    font-weight: 700;
+    color: black;
+    background: white;
+    margin: 2px 0 0 0 2px;
+}
+.dataHeader{
+    color: black;
+    background: white;
+    margin: 2px 0 0 0 2px;
+}
+
+.dataHighlightSmall{
+    font-size: 85%;
+    color: black;
+    background: white;
+    margin: 2px 0 0 0 2px;
+}
+.dataHeaderSmall{
+    font-size: 75%;
+    font-weight: 700;
+    color: black;
+    background: white;
+    margin: 2px 0 0 0 2px;
+}
+
+.number{
+    text-align: right;
+}
+
+#news table{
+    width: 100%;
+    color: white;
+}
+
+#news a:link, #news a:active, #news a:hover, #news a:visited {
+    color: white;
+    font-weight: bold;
+}
+
+
+div#pad table{
+    width: 100%;
+}
+
+div.ticketDelete{
+    display: inline;
+    width: 10px;
+    margin: 2px;
+    margin-bottom: 3px;
+}
+
+div.ticketId{
+    display: inline;
+    width: 100px;
+    margin: 2px;
+    margin-bottom: 3px;
+}
+div.ticketDate{
+    display: inline;
+    width: 100px;
+    margin: 2px;
+    margin-bottom: 3px;
+    padding: 1px;
+
+}
+
+div.ticketLister{
+    color: black;
+    background: white;
+    margin-top: 2px;
+    padding: 3px;
+}
+
+div.ticketPriority{
+    display: inline;
+    width: 50%;
+    margin: 2px;
+    padding: 1px;
+}
+
+div.ticketStatus{
+    display: inline;
+    width: 75px;
+    margin: 2px;
+    padding: 1px;
+}
+
+div.ticketHeader{
+    display: block;
+    margin-bottom: 3px;
+}
+
+span.field{
+    font-weight: 900;
+}
+
+span.date{
+    font-weight: 900;
+    font-style: italic;
+}
+
+div.hb span.date{
+    font-size: 85%;
+    font-weight: normal;
+}
+
+span.notes{
+    font-weight: normal;
+}
+
+span.action{
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+
+div.hb{
+    background-color: #EEEEEE;
+}
+
+div.dt{
+    padding-left: 10px;
+    font-size: 75%;
+}
+
+.historyList{
+    list-style: none;
+    margin: 0px;
+}
+
+.historyList li{
+    display: block;
+    width: 100%;
+    margin: 0px;
+    margin-top: 5px;
+}
+
+.historyListSubel{
+    margin: 0px;
+    margin-top: 5px;
+}

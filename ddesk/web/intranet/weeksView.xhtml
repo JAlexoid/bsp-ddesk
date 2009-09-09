@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="editTicket"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="route">
+                <h:outputText value="#{bundle['application.view.weeksView']}"/>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:outputText value="#{weekView.condInit}"/>
+                <h:form>
+                    <h:outputText value="#{bundle['application.view.worker']}" rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}"/>:
+                    <h:selectOneMenu value="#{weekView.personId}"  rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                        <f:selectItems value="#{clientAccessor.assignSelect}" />
+                    </h:selectOneMenu>
+                    <h:commandButton value="#{bundle['application.view.refresh']}" action="#{weekView.refresh}" rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}"/>
+
+                        <t:schedule
+                            value="#{weekView.model}"
+                            id="schedule1"
+                            rendered="true"
+                            visibleEndHour="18"
+                            visibleStartHour="8"
+                            workingEndHour="17"
+                            workingStartHour="9"
+                            readonly="false"
+                            actionListener="#{weekView.scheduleActionPerformed}"/>
+
+                </h:form>
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

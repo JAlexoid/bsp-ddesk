@@ -1,0 +1,59 @@
+Java
+
+	You will need to install Java version 1.6 to run this application
+
+Prepare from source
+	For source distribution you will need:
+		Apache ANT 1.7, see http://ant.apache.org/manual/index.html for installation instructions
+		Java SDK 1.6
+
+	Run
+	 $>ant dist
+	in the distribution/project directory. It will build the application and package it.
+
+Database
+
+	For the database you will need PostgreSQL 8.1 or above with PL/pgSQL language available(it is available by default)
+	The database has to be configured to be accessed via TCP/IP.
+	See http://www.postgresql.org/docs/8.1/static/index.html for more information
+
+	To setup database you just need to run the ddesk-db.sql against your DB. Create the database with UNICODE encoding, if needed.
+
+	Here are the full steps(PostgreSQL CLI tools have to be accessible):
+		Create the database
+			$> createdb -E UTF8 ddesk -U youruser -h posgresql.host -p 5432
+		Create structure and base data(run this in the DDesk directory)
+			$> psql -U youruser -h posgresql.host -p 5432 ddesk < ddesk-db.sql
+	The database is ready to be connected to.
+
+Tomcat
+
+	This application has been tested with Tomcat 5.5 and 6.0.
+
+	Unpack the Tomcat distribution. Install as described in http://tomcat.apache.org/tomcat-6.0-doc/setup.html
+	If you are going to use Tomcat Manager or Ant build script's auto deploy, then see http://tomcat.apache.org/tomcat-6.0-doc/manager-howto.html#Configuring%20Manager%20Application%20Access
+
+
+Start application
+
+	DDesk is packaged to have all required information within.
+
+	NOTE: Database configuration is done in /META-INF/context.xml ( Main /web/META-INF/context.xml or Distribution's /dist/ddesk/META-INF/context.xml)
+			Please update required values in there.
+			This can be done anytime before or after deployment.
+			After deployment, the context.xml will reside in [tomcat-intallation]/webapps/ddesk/META-INF/context.xml and [tomcat-intallation]/conf/Catalina/[host]/ddesk.xml
+			A redeploy or reload is required.
+		Advanced users may want to tinker with the configuration options.
+
+	Deploy manually:
+		In the dist directory, there are a ddesk.war and a ddesk directory.
+		You may log into Tomcat Manager and install ddesk.war, see http://tomcat.apache.org/tomcat-6.0-doc/manager-howto.html#Deploy%20A%20New%20Application%20Remotely
+		If you have direct access to webapps directory, you can copy the ddesk directory to Tomcat's webapps directory. Removing that directory will undeploy the application.
+		You can also copy ddesjk.war there to achieve the same effect.
+		You can repackage the application by running 'ant package' (Requires ant)
+
+	Deploy out of script(Requires ant):
+		Edit the deploy-tomcat.properties file with your access information and Tomcat manager location
+		The build script has three deploy commands: deploy, deploy-inplace and deploy-inplace-full.
+		Only deploy can deploy DDesk onto nonlocal machine. Inplace deploymet require Tomcat running locally.
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="newModule"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="route">
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="editPrio" >
+
+                    <h3 id="idea" title="Form"><h:outputText value="#{projects.selected.name}"/>:<h:outputText value="#{bundle['application.new.module']}"/></h3>
+                    <table style="width:100%;}">
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.view.projectModule']}"/>
+                            </td>
+                            <td class="dataCell">
+                                <h:inputText id="name" value="#{projects.module.name}" required="true"/>
+                                <h:message errorClass="error" for="name"/>
+                            </td>
+                        </tr>
+                        <tr class="dataHeader">
+                            <td colspan="2">
+                                <h:outputText value="#{bundle['application.view.description']}"/>:
+                            </td>
+                        </tr>
+                        <tr class="dataHeader">
+                            <td colspan="2" class="dataCell">
+                                <h:inputTextarea id="adescriptiona" value="#{projects.module.description}" style="width: 100%; height: 150px;}" >
+                                </h:inputTextarea>
+                                <h:message errorClass="error" id="adescriptionaMessages" for="adescriptiona"/>
+                            </td>
+                        </tr>
+                        <tr class="dataHeader">
+                            <td colspan="2">
+                                <h:commandButton id="submit" action="#{projects.addModule}" value="#{bundle['application.form.submitCreate']}" styleClass="button" rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}" />
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

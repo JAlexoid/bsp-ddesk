@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core">
+    <body>
+
+        This text above will not be displayed.
+
+        <ui:composition>
+
+            <div id="linkBar">
+                <span class="linkBackground#{page == 'index' ? 'A':'Ina'}ctive"><a href="#{contextName}/intranet/index.jsf"><h:outputText value="#{bundle['application.private.index']}"/></a></span>
+                <span class="linkBackground#{page == 'clientList' ? 'A':'Ina'}ctive" style="display: #{userHandler.owner?'inline':'none'}"><a href="#{contextName}/intranet/clientList.jsf"><h:outputText value="#{bundle['application.private.clientList']}"/></a></span>
+                <span class="linkBackground#{page == 'ticketList' ? 'A':'Ina'}ctive"><a href="#{contextName}/intranet/ticketList.jsf"><h:outputText value="#{bundle['application.private.ticketList']}"/></a></span>
+                <span class="linkBackground#{page == 'ticketListPerson' ? 'A':'Ina'}ctive"><a href="#{contextName}/intranet/ticketListPerson.jsf"><h:outputText value="#{bundle['application.private.ticketListPerson']}"/></a></span>
+                <span class="linkBackground#{page == 'reports' ? 'A':'Ina'}ctive"  style="display: #{userHandler.owner?'inline':'none'}"><a href="#{contextName}/intranet/reports.jsf"><h:outputText value="#{bundle['application.private.reports']}"/></a></span>
+                <span class="linkBackground#{page == 'projects' ? 'A':'Ina'}ctive" style="display: #{userHandler.owner?'inline':'none'}"><a href="#{contextName}/intranet/projects.jsf"><h:outputText value="#{bundle['application.list.projects']}"/></a></span>
+                <span class="linkBackground#{page == 'timerList' ? 'A':'Ina'}ctive" style="display: #{userHandler.owner?'inline':'none'}"><a href="#{contextName}/intranet/timerList.jsf"><h:outputText value="#{bundle['application.timers.title']}"/></a></span>
+                <span class="linkBackground#{page == 'configuration' ? 'A':'Ina'}ctive" style="display: #{userHandler.owner?'inline':'none'}"><a href="#{contextName}/intranet/configuration.jsf"><h:outputText value="#{bundle['application.private.configuration']}"/></a></span>
+                <span class="linkBackground#{page == 'newCompanyTicket' ? 'A':'Ina'}ctive"><a href="#{contextName}/intranet/newCompanyTicket.jsf?ticketId=-1"><h:outputText value="#{bundle['application.client.newTicket']}"/></a></span>
+            </div>
+        </ui:composition>
+
+        This text below will also not be displayed.
+
+    </body>
+</html> 

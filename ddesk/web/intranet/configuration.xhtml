@@ -1,0 +1,290 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="configuration"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:outputLink value="params/statuses.jsf"
+                    rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                    <h:outputText value="Status list"/>
+                </h:outputLink>
+                <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                <h:outputLink value="params/priorities.jsf"
+                    rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                    <h:outputText value="Priority list"/>
+                </h:outputLink>
+                <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                <h:outputLink value="params/evtTypes.jsf"
+                    rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                    <h:outputText value="Event type list"/>
+                </h:outputLink>
+                <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                <h:outputLink value="params/severities.jsf"
+                    rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                    <h:outputText value="Severity list"/>
+                </h:outputLink>
+
+                <h4><h:outputText value="#{bundle['application.private.configuration']}"/></h4>
+
+                <h:form>
+                    <table>
+                        <tr>
+                            <th colspan="2">
+                                Emails
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Emailing Activated:
+                            </td>
+                            <td>
+                                <h:selectBooleanCheckbox id="mailActivated" value="#{configurer.mailActivated}"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="25%">
+                                To:
+                            </td>
+                            <td>
+                                <h:inputText id="mail" value="#{configurer.mail}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Admin mail:
+                            </td>
+                            <td>
+                                <h:inputText id="adminMail" value="#{configurer.adminMail}" required="true" style="width: 100%;}" >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                From:
+                            </td>
+                            <td>
+                                <h:inputText id="mailFrom" value="#{configurer.mailFrom}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                SMTP Server:
+                            </td>
+                            <td>
+                                <h:inputText id="SMTPHost" value="#{configurer.SMTPHost}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                SMTP Authentication:
+                            </td>
+                            <td>
+                                <h:selectBooleanCheckbox id="SMTPAuthentication" value="#{configurer.SMTPAuthentication}"/>
+                            </td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td>
+                                SMTP User:
+                            </td>
+                            <td>
+                                <h:inputText id="SMTPUser" value="#{configurer.SMTPUser}" required="false" style="width: 100%;}"  >
+                                </h:inputText>
+
+                            </td>
+                         </tr>
+
+                        <tr>
+                            <td>
+                                SMTP Password:
+                            </td>
+                            <td>
+                                <h:inputText id="SMTPPassword" value="#{configurer.SMTPPassword}" required="false" style="width: 100%;}"  >
+                                </h:inputText>
+
+                            </td>
+                        </tr>
+
+
+
+
+                        <tr>
+                            <td colspan="2">
+                                {0} - date<br/>
+                                {1} - type<br/>
+                                {2} - name<br/>
+                                {3} - uniqueId<br/>
+                                {4} - severity<br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject add:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectAdd" value="#{configurer.subjectAdd}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject edit:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectChange" value="#{configurer.subjectChange}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject close:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectClose" value="#{configurer.subjectClose}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject accept:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectAccept" value="#{configurer.subjectAccept}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject comment:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectComment" value="#{configurer.subjectComment}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject edit by client:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectCommentClt" value="#{configurer.subjectClientEdit}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject reopen:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectreopen" value="#{configurer.subjectReopen}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                Subjects sent to clients
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Subject add:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectreopena" value="#{configurer.subjectAddedClient}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject accept:
+                            </td>
+                            <td>
+
+                                <h:inputText id="subjectreopenb" value="#{configurer.subjectAcceptedClient}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject closed:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectreopenc" value="#{configurer.subjectClosedClient}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject reopen:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectreopend" value="#{configurer.subjectReopenClient}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject comment:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectreopene" value="#{configurer.subjectCommentClient}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Subject changed:
+                            </td>
+                            <td>
+                                <h:inputText id="subjectreopenf" value="#{configurer.subjectChangedClient}" required="true" style="width: 100%;}"  >
+                                </h:inputText>
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                    <h:commandButton id="submit" action="#{configurer.saveConfiguration}" value="OK" styleClass="button" />
+
+                </h:form>
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

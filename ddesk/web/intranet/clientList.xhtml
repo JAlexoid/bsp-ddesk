@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk"
+    xmlns:a="http://activelogic.eu/jsf/validations"
+    xmlns:pop="http://activelogic.eu/jsf/popMenu">
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="clientList"/>
+                </ui:include>
+            </ui:define>
+
+
+
+            <ui:define name="content">
+                <pop:popMenuScript/>
+                <h4><h:outputText value="#{bundle['application.private.clientList']}"/></h4>
+
+
+                <h:dataTable var="item" value="#{clientAccessor.listCompanies}"  columnClasses="dataHighlightSmall">
+
+
+                    <h:column>
+                        <h:outputLink value="viewClient.jsf">
+                            <h:outputText value="#{item.id}"/>
+                            <f:param name="companyId" value="#{item.id}"/>
+                        </h:outputLink>
+                    </h:column>
+
+                    <h:column>
+                        <pop:popMenu styleClass="optRuns">
+                            <f:facet name="mainLink">
+                                <h:outputLink value="viewClient.jsf">
+                                    <h:outputText value="#{item.name}"/>
+                                    <f:param name="companyId" value="#{item.id}"/>
+                                </h:outputLink>
+                            </f:facet>
+
+                            <h:outputLink id="newTicket" value="newTicket.jsf">
+                                <h:outputText value="#{bundle['application.client.newTicket']}"/>
+                                <f:param name="companyId" value="#{item.id}"/>
+                                <f:param name="ticketId" value="-1"/>
+                            </h:outputLink>
+
+                            <h:outputText value=" | "
+                            rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}"/>
+
+                            <h:outputLink id="edit" value="editClient.jsf"
+                                rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                                <h:outputText value="#{bundle['application.client.editClient']}"/>
+                                <f:param name="companyId" value="#{item.id}"/>
+                            </h:outputLink>
+
+                            <h:outputText value=" | "
+                            rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}"/>
+
+                            <h:outputLink value="newPerson.jsf"
+                                rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                                <h:outputText value="#{bundle['application.company.newPerson']}"/>
+                                <f:param name="companyId" value="#{item.id}"/>
+                                <f:param name="personId" value="#{-1}"/>
+                            </h:outputLink>
+
+
+                        </pop:popMenu>
+
+                    </h:column>
+
+                    <h:column>
+
+                        <h:outputText value="#{item.adress}"/>
+
+                    </h:column>
+
+                    <h:column>
+
+                        <h:outputText value="#{item.billingAdress}"/>
+
+                    </h:column>
+
+                    <h:column>
+
+                        <h:outputText value="#{item.code}"/>
+
+                    </h:column>
+
+                    <h:column>
+                        <h:outputText value="#{item.vatcode}"/>
+                    </h:column>
+
+                    <h:column>
+                    	<h:form>
+	                        <h:commandLink rendered="#{userHandler.user.loginLevel == 0}" action="#{clientAccessor.deleteCompany}" onclick="if(!confirm('?')){ return false;}">
+	                            <h:outputText value="X"/>
+	                            <f:param binding="#{clientAccessor.clientIdParameter}" name="companyId" value="#{item.id}"/>
+	                        </h:commandLink>
+                        </h:form>
+                    </h:column>
+
+                </h:dataTable>
+
+            </ui:define>
+
+            <ui:define name="infoPane">
+                <a href="newClient.jsf?companyId=-1"><h:outputText value="#{bundle['application.company.new']}"/></a>
+                <ui:include src="/WEB-INF/repository/freeList.xhtml" />
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

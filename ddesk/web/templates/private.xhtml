@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+
+        <f:loadBundle basename="messages" var="bundle"/>
+        <f:loadBundle basename="version" var="version"/>
+
+        <h:outputText id="ticketAccessProxy" value="#{ticketAccessProxy.dummyOutput}"/>
+        <h:outputText id="ticketParameterProxy" value="#{ticketParameterProxy.dummyOutput}"/>
+        <h:outputText id="clientAccessProxy" value="#{clientAccessProxy.dummyOutput}"/>
+        <h:outputText id="projectAccessorProxy" value="#{projectAccessorProxy.dummyOutput}"/>
+        <head>
+            <title>#{bundle['application.name']}</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <meta name="keywords" content="" />
+            <meta name="description" content="" />
+            <meta http-equiv="imagetoolbar" content="no" />
+            <script src="#{contextName}/scripts.js" type="text/javascript" xml:spcae="preserve">
+
+            </script>
+            <script type='text/javascript' src='#{contextName}/dwr/engine.js'  xml:spcae="preserve">
+
+            </script>
+            <script type='text/javascript' src='#{contextName}/dwr/util.js'  xml:spcae="preserve">
+
+            </script>
+            <ui:insert name="addedscripts"></ui:insert>
+            <t:stylesheet path="/style.css"/>
+            <t:stylesheet path="/styleNotices.css"/>
+        </head>
+        <body>
+            <div id="titleHeader">
+                <div id="titleLinks">
+                    <ui:include src="/WEB-INF/repository/loggedInPrivate.xhtml" />
+                </div>
+                <div id="title">
+                    KnowDesk
+                </div>
+
+                <ui:insert name="menu">
+                    <ui:include src="/WEB-INF/repository/privateMenu.xhtml" />
+                </ui:insert>
+
+            </div>
+
+            <div id="contentPane">
+
+
+                <a href="javascript:oneOfTwoView('qBug','qFeature')">#{bundle['application.qBugEntry']}</a>
+                &nbsp;&nbsp;
+                <a href="javascript:oneOfTwoView('qFeature','qBug')">#{bundle['application.qFeatureEntry']}</a>
+                <br/>
+
+
+                <ui:insert name="route">
+                </ui:insert>
+
+                <div class="errorContainer" id="theErrorContainerThatIsSingleOnThisPage">
+
+                </div>
+
+                <ui:insert name="content">
+                </ui:insert>
+
+            </div>
+
+            <div id="infoPane">
+                <ui:insert name="infoPane">
+                    <ui:include src="/WEB-INF/repository/freeList.xhtml" />
+                </ui:insert>
+            </div>
+
+            <div id="copyPane">
+               &copy; <a href="http://www.bsprendimai.lt/">Baltijos Sprendimai</a> (original author <a href="http://www.activelogic.eu/">Aleksandr Panzin</a>)   #{version['version']} (#{version['build']})
+            </div>
+
+            <div id="qBug" class="invisibleInput">
+                <div style="text-align: right;}">
+                    <a href="javascript:clickView('qBug');">X</a>
+                </div>
+                <ui:include src="/WEB-INF/repository/quickBug.xhtml" />
+            </div>
+
+            <div id="qFeature" class="invisibleInput">
+                <div style="text-align: right;}">
+                    <a href="javascript:clickView('qFeature');">X</a>
+                </div>
+                <ui:include src="/WEB-INF/repository/quickFeature.xhtml" />
+            </div>
+
+            <div style="display:none;}" id="theOneThatICopyEverythinTotheErrorContainerThatIsSingleOnThisPage">
+                <h:messages globalOnly="true" errorClass="errorPart" fatalClass="errorPart" infoClass="infoPart" warnClass="infoPart" layout="table"/>
+            </div>
+
+            <script type="text/javascript">
+                clickView('qBug');
+                clickView('qFeature');
+                document.getElementById('theErrorContainerThatIsSingleOnThisPage').innerHTML = document.getElementById('theOneThatICopyEverythinTotheErrorContainerThatIsSingleOnThisPage').innerHTML;
+            </script>
+
+        </body>
+
+</html>

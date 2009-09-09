@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ======================================================================
+     Aug 27, 2009 9:42:13 PM
+
+     DDesk
+     DDesk application build file
+
+     alex
+     ====================================================================== -->
+<project name="DDesk" default="compile">
+
+	<property name="src" location="src" />
+	<property name="version.mesasges" location="src/version.properties" />
+	<property name="build" location="build/ddesk" />
+	<property name="dist" location="dist/ddesk" />
+	<property name="docs" location="dist/docs" />
+	<property name="warfile" location="dist/ddesk.war" />
+	<property name="classes" location="web/WEB-INF/classes" />
+	<property name="content" location="web" />
+	<property name="lib" location="web/WEB-INF/lib" />
+	<property name="exlib" location="lib" />
+
+	<property file="deploy-tomcat.properties" />
+
+	<import file="${catalina.home}/bin/catalina-tasks.xml"/>
+
+	  <property name="compile.debug"       value="true"/>
+	  <property name="compile.deprecation" value="false"/>
+	  <property name="compile.optimize"    value="true"/>
+
+
+    <description>
+            DDesk application build file
+    </description>
+
+
+	<path id="paths.libs">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${exlib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="setup">
+		<tstamp />
+		<echo message="${DSTAMP}${TSTAMP}" />
+		<mkdir dir="${build}"  />
+		<mkdir dir="${classes}" />
+		<mkdir dir="${dist}" />
+		<mkdir dir="${docs}" />
+	</target>
+
+
+    <!-- =================================
+          target: compile
+
+          Forces total recompile
+
+         ================================= -->
+    <target name="compile" depends="clean,setup" description="DDesk application build file">
+
+		<javac srcdir="${src}" destdir="${classes}" debug="true" encoding="UTF8">
+			<classpath refid="paths.libs" />
+		</javac>
+
+    	<propertyfile file="${version.mesasges}" comment="Version information of the project">
+    		<entry key="build" value="Build:${DSTAMP}${TSTAMP}" />
+    	</propertyfile>
+
+		<copy todir="${classes}">
+			<fileset dir="${src}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+
+		<copy todir="${build}">
+			<fileset dir="${content}">
+				<include name="**" />
+			</fileset>
+		</copy>
+
+    	<delete dir="${classes}" />
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - -
+          target: clean
+         - - - - - - - - - - - - - - - - - -->
+	<target name="clean">
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		<delete file="${warfile}" />
+		<delete dir="${classes}" />
+		<delete dir="${docs}" />
+	</target>
+
+    <!-- - - - - - - - - - - - - - - - - -
+          target: dist
+         - - - - - - - - - - - - - - - - - -->
+	<target name="dist" depends="compile" description="Build a distribution">
+		<copy todir="${dist}">
+			<fileset dir="${build}">
+				<include name="**" />
+			</fileset>
+		</copy>
+		<war destfile="${warfile}" basedir="${dist}" includes="**/*"/>
+	</target>
+
+    <!-- - - - - - - - - - - - - - - - - -
+          target: package
+         - - - - - - - - - - - - - - - - - -->
+	<target name="package" description="Package distribution ready">
+		<copy todir="${dist}">
+			<fileset dir="${content}">
+				<include name="**" />
+			</fileset>
+		</copy>
+		<war destfile="${warfile}" basedir="${dist}" includes="**/*"/>
+	</target>
+
+    <!-- - - - - - - - - - - - - - - - - -
+          target: deploy
+         - - - - - - - - - - - - - - - - - -->
+	<target name="deploy" depends="dist" description="Deploy application WAR,  build beforehand">
+		<deploy war="${warfile}" username="${manager.username}" password="${manager.password}" url="${catalina.manager.url}" path="${app.path}"/>
+	</target>
+
+    <!-- - - - - - - - - - - - - - - - - -
+          target: deploy-inplace-full
+         - - - - - - - - - - - - - - - - - -->
+	<target name="deploy-inplace-full" description="Deploy application in place,  build beforehand">
+		<antcall target="dist"></antcall>
+		<antcall target="deploy-inplace"></antcall>
+	</target>
+
+    <!-- - - - - - - - - - - - - - - - - -
+          target: deploy-inplace
+         - - - - - - - - - - - - - - - - - -->
+	<target name="deploy-inplace" description="Deploy application in place">
+		<deploy
+			localWar="file://${dist}"
+			path="${app.path}"
+			username="${manager.username}"
+			password="${manager.password}"
+			url="${catalina.manager.url}"/>
+	</target>
+
+	<!-- ==================== Reload Target =================================== -->
+
+	  <target name="reload"
+	   description="Reload application on servlet container">
+
+	    <reload url="${catalina.manager.url}"
+	       username="${manager.username}"
+	       password="${manager.password}"
+	           path="${app.path}"/>
+
+	  </target>
+
+
+	<!-- ==================== Remove Target =================================== -->
+
+	  <target name="remove"
+	   description="Remove application on servlet container">
+
+	    <undeploy url="${catalina.manager.url}"
+	         username="${manager.username}"
+	         password="${manager.password}"
+	             path="${app.path}"/>
+
+	  </target>
+
+	<!-- ==================== Javadoc Target ================================== -->
+
+	  <target name="javadoc" depends="compile"
+	   description="Create Javadoc API documentation">
+
+	    <mkdir dir="${docs}/api"/>
+	    <javadoc sourcepath="${src}"
+	                destdir="${docs}/api"
+	           packagenames="*">
+	      <classpath refid="paths.libs"/>
+	    </javadoc>
+
+	  </target>
+
+
+
+</project>

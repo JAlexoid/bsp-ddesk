@@ -1,0 +1,9 @@
+Pavadinimas:{name}
+Kas įrase:{personName}
+E.paštas:{personEmail}
+Pareigos:{personPosition}
+Įone:{companyName}
+Irašo data:{reportDate}
+Prioritetas:{priorityName}
+Pastabos:{requestNotes}
+Telefonas:{requestNotes}

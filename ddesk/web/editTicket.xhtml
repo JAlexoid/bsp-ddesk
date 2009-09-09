@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+
+        <ui:composition template="/templates/public.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+            <ui:define name="content">
+                <h:form id="editTicket" rendered="#{!ticketAccess.selected.closedState}">
+                    <h3 title="Form"><h:outputText value="#{bundle['application.form.edit']}"/></h3>
+                    <table class="styled">
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.view.reportDate']}"/>
+                            </td>
+                            <td class="dataHighlight">
+                                <h:outputText value="#{ticketAccess.selectedInfo.reportDate}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.view.personName']}"/>
+                            </td>
+                            <td class="dataHighlight">
+                                <h:outputText value="#{ticketAccess.selectedInfo.personName}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.view.statusName']}"/>
+                            </td>
+                            <td class="dataHighlight">
+                                <h:outputText value="#{ticketAccess.selectedInfo.statusName}"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <ui:include src="/WEB-INF/repository/ticketEdit.xhtml"/>
+
+                    <h:commandButton id="submit" action="#{ticketAccess.update}" value="#{bundle['application.form.submitEdit']}" styleClass="button" rendered="#{!ticketAccess.selected.closedState}" >
+                        <f:param name="ticketId" value="#{ticketAccess.selected.id}"/>
+                    </h:commandButton>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

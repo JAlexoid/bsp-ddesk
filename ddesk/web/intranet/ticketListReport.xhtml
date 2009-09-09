@@ -1,0 +1,410 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk"
+    xmlns:a="http://activelogic.eu/jsf/validations"
+    xmlns:pop="http://activelogic.eu/jsf/popMenu">
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+            <ui:define name="addedscripts">
+                <script type='text/javascript' src='#{contextName}/dwr/interface/ProjectAccessor.js' xml:spcae="preserve"> </script>
+                <script type='text/javascript' src='#{contextName}/intranet/intranet.js' xml:spcae="preserve"> </script>
+            </ui:define>
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="ticketListReport"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="route">
+                <h:outputLink value="reports.jsf">
+                    <h:outputText value="#{bundle['application.private.reports']}"/>
+                </h:outputLink>
+                &gt;
+                <h:outputText value="#{bundle['application.list.title.detail']}"/>
+            </ui:define>
+
+
+            <ui:define name="content">
+                <pop:popMenuScript/>
+                <!-- CONTENT -->
+                <h4><h:outputText value="#{bundle['application.list.title.detail']}"/></h4>
+
+
+                <h:form>
+                    <h:inputHidden value="#{searchParameters.page}"/>
+                    <table width="100%">
+                        <tr>
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.list.uniqueId']}"/>
+                            </th>
+
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.list.ticketName']}"/>
+                            </th>
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.view.worker']}"/>
+                            </th>
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.list.project']}"/>
+                            </th>
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.list.module']}"/>
+                            </th>
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.list.accepted']}"/>
+                            </th>
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.list.closed']}"/>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:inputText value="#{searchParameters.spe.uniqueId}" style="width:100%;}"/>
+                            </td>
+                            <td>
+                                <h:inputText value="#{searchParameters.spe.ticketName}" style="width:100%;}"/>
+                            </td>
+                            <td>
+                                <h:selectOneMenu value="#{searchParameters.spe.assigned}"  style="width:100%;}">
+                                    <f:selectItems value="#{clientAccessor.assignSelect}" />
+                                </h:selectOneMenu>
+                            </td>
+
+                            <td>
+                                <t:selectOneMenu id="project" value="#{searchParameters.spe.project}" onchange="selectedProject(this)" >
+                                    <f:selectItems value="#{projects.projects}" />
+                                </t:selectOneMenu>
+                            </td>
+
+                            <td>
+                                <a:selectOneMenu id="moduleSelect" forceId="true" value="#{searchParameters.spe.module}">
+                                    <f:selectItems value="#{searchParameters.modules}" />
+                                </a:selectOneMenu>
+                            </td>
+
+                            <td>
+                                <h:selectOneMenu value="#{searchParameters.spe.accepted}">
+                                    <f:selectItems value="#{ticketParameters.selection}" />
+                                </h:selectOneMenu>
+                            </td>
+                            <td>
+                                <h:selectOneMenu value="#{searchParameters.spe.closed}">
+                                    <f:selectItems value="#{ticketParameters.selection}" />
+                                </h:selectOneMenu>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table width="100%" >
+                        <tr>
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.list.company']}"/>
+                            </th>
+
+
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.view.worker']}"/>
+                            </th>
+
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.list.forDate']}"/>
+                            </th>
+
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.list.version']}"/>
+                            </th>
+
+                            <th  class="dataHeaderSmallX">
+                                <h:outputText value="#{bundle['application.view.eventName']}"/>
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:selectOneMenu value="#{searchParameters.spe.company}" style="width:100%;}">
+                                    <f:selectItems value="#{clientAccessor.companies}" />
+                                </h:selectOneMenu>
+                            </td>
+
+                            <td>
+                                <h:selectOneMenu value="#{searchParameters.spe.status}"  style="width:100%;}">
+                                    <f:selectItems value="#{ticketParameters.statusSelect}" />
+                                </h:selectOneMenu>
+                            </td>
+
+                            <td>
+
+                            	<t:inputDate id="forDate" required="false" value="#{searchParameters.spe.forDate}" type="date" popupCalendar="false" style="width:100%;}" timeZone="#{userHandler.timeZone}"/>
+                            	<!--
+                                <t:inputText id="forDate" value="#{searchParameters.spe.forDate}" style="width:100%;}">
+                                    <f:convertDateTime pattern="yyyy.MM.dd" timeZone="#{userHandler.timeZone}"/>
+                                </t:inputText>
+                                 -->
+                                <h:message errorClass="error" for="forDate"/>
+                            </td>
+
+                            <td>
+                                <h:inputText id="version" value="#{searchParameters.spe.version}" style="width:100%;}" >
+                                </h:inputText>
+                                <h:message errorClass="error" for="version"/>
+                            </td>
+
+                            <td>
+                                <h:selectOneMenu value="#{searchParameters.spe.type}"  style="width:100%;}">
+                                    <f:selectItems value="#{ticketParameters.eventTypeSelect}" />
+                                </h:selectOneMenu>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                    <h:commandButton action="#{searchParameters.apply}" value="#{bundle['application.list.search']}"/>
+                    <h:commandButton action="#{searchParameters.clear}" value="#{bundle['application.list.clear']}"/>
+
+
+                    <h:dataTable var="item" value="#{searchParameters.ticketList}"
+                        columnClasses="dataHighlightXSmall,dataHighlightSmall,dataHighlightSmall,dataHighlightSmall,dataHighlightXSmall,dataHighlightSmall,dataHighlightSmall,dataHighlightXSmall"
+                        headerClass="dataHeaderSmall">
+                        <h:column>
+                            <f:facet name="header">
+                                <t:div>
+                                    <h:commandLink action="#{searchParameters.sortUniqueIdAction}">
+                                        <h:outputText value="ID"/>
+                                    </h:commandLink>
+                                    <h:outputText value="(a)" rendered="#{searchParameters.spe.sortUniqueId != null and searchParameters.spe.sortUniqueId}"/>
+                                    <h:outputText value="(d)" rendered="#{searchParameters.spe.sortUniqueId != null and !searchParameters.spe.sortUniqueId}"/>
+                                </t:div>
+                            </f:facet>
+
+                            <h:outputText rendered="#{item.closedState}"
+                            styleClass="taskClosed" value="#{item.uniqueId}" />
+
+                            <h:outputText rendered="#{item.acceptedState}"
+                            styleClass="taskAccepted" value="#{item.uniqueId}" />
+
+                            <h:outputText rendered="#{item.newState}"
+                            styleClass="taskNew" value="#{item.uniqueId}" />
+
+                            <h:outputText rendered="#{!item.chargeable}"
+                            value="*" />
+
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <t:div>
+                                    <h:commandLink action="#{searchParameters.sortNameAction}">
+                                        <h:outputText value="#{bundle['application.list.name']}"/>
+                                    </h:commandLink>
+                                    <h:outputText value="(a)" rendered="#{searchParameters.spe.sortName != null and searchParameters.spe.sortName}"/>
+                                    <h:outputText value="(d)" rendered="#{searchParameters.spe.sortName != null and !searchParameters.spe.sortName}"/>
+                                </t:div>
+                            </f:facet>
+
+                            <pop:popMenu styleClass="optRuns">
+                                <f:facet name="mainLink">
+                                    <h:outputLink value="viewTicket.jsf">
+                                        <h:outputText value="#{item.name}"/>
+                                        <f:param name="ticketId" value="#{item.id}"/>
+                                    </h:outputLink>
+                                </f:facet>
+
+                                <h:outputLink value="editTicket.jsf">
+                                    <t:outputText value="#{bundle['application.view.edit']}"/>
+                                    <f:param name="ticketId" value="#{item.id}"/>
+                                    <f:param name="companyId" value="#{item.company}"/>
+                                </h:outputLink>
+
+                                <h:outputText value=" | " rendered="#{!item.acceptedState}"/>
+
+                                <h:outputLink value="acceptTask.jsf" rendered="#{!item.acceptedState}">
+                                    <t:outputText value="#{bundle['application.view.accept']}"/>
+                                    <f:param name="ticketId" value="#{item.id}"/>
+                                    <f:param name="companyId" value="#{item.company}"/>
+                                </h:outputLink>
+
+                                <h:outputText value=" | " rendered="#{!item.closedState }"/>
+
+                                <h:outputLink value="closeTask.jsf" rendered="#{!item.closedState }">
+                                    <t:outputText value="#{bundle['application.view.close']}"/>
+                                    <f:param name="ticketId" value="#{item.id}"/>
+                                    <f:param name="companyId" value="#{item.company}"/>
+                                </h:outputLink>
+
+
+                            </pop:popMenu>
+
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <t:div>
+                                    <h:commandLink action="#{searchParameters.sortReportDateAction}">
+                                        <h:outputText value="#{bundle['application.list.reportDate']}"/>
+                                    </h:commandLink>
+                                    <h:outputText value="(a)" rendered="#{searchParameters.spe.sortReportDate != null and searchParameters.spe.sortReportDate}"/>
+                                    <h:outputText value="(d)" rendered="#{searchParameters.spe.sortReportDate != null and !searchParameters.spe.sortReportDate}"/>
+                                </t:div>
+                            </f:facet>
+                            <h:outputLink value="viewTicket.jsf">
+                                <h:outputText value="#{item.reportDate}">
+                                    <f:convertDateTime dateStyle="medium" pattern="yyyy.MM.dd"  timeZone="#{userHandler.timeZone}"/>
+                                </h:outputText>
+                                <f:param name="ticketId" value="#{item.id}"/>
+                            </h:outputLink>
+
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <t:div>
+                                    <h:commandLink action="#{searchParameters.sortPlanedAction}">
+                                        <h:outputText value="#{bundle['application.form.planedDate']}"/>
+                                    </h:commandLink>
+                                    <h:outputText value="(a)" rendered="#{searchParameters.spe.sortPlaned != null and searchParameters.spe.sortPlaned}"/>
+                                    <h:outputText value="(d)" rendered="#{searchParameters.spe.sortPlaned != null and !searchParameters.spe.sortPlaned}"/>
+                                </t:div>
+
+                            </f:facet>
+                            <h:outputText value="#{item.planedDate}">
+                                <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd HH"  timeZone="#{userHandler.timeZone}"/>
+                            </h:outputText>
+                        </h:column>
+
+                        <!--h:column>
+                        <f:facet name="header">
+                        <t:div>
+                        <h:commandLink action="#{searchParameters.sortCompanyAction}">
+                        <h:outputText value="#{bundle['application.list.companyName']}"/>
+                        </h:commandLink>
+                        <h:outputText value="(a)" rendered="#{searchParameters.spe.sortCompany != null and searchParameters.spe.sortCompany}"/>
+                        <h:outputText value="(d)" rendered="#{searchParameters.spe.sortCompany != null and !searchParameters.spe.sortCompany}"/>
+                        </t:div>
+                        </f:facet>
+                        <h:outputText value="#{item.companyName}"/>
+                        </h:column-->
+
+                        <h:column>
+                            <f:facet name="header">
+                                <t:div>
+                                    <h:commandLink action="#{searchParameters.sortPriorityAction}">
+                                        <h:outputText value="#{bundle['application.list.priorityName']}"/>
+                                    </h:commandLink>
+                                    <h:outputText value="(a)" rendered="#{searchParameters.spe.sortPriority != null and searchParameters.spe.sortPriority}"/>
+                                    <h:outputText value="(d)" rendered="#{searchParameters.spe.sortPriority != null and !searchParameters.spe.sortPriority}"/>
+                                </t:div>
+                            </f:facet>
+                            <h:outputText value="#{item.priorityName}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <t:div>
+                                    <h:commandLink action="#{searchParameters.sortStatusAction}">
+                                        <h:outputText value="#{bundle['application.list.statusName']}"/>
+                                    </h:commandLink>
+                                    <h:outputText value="(a)" rendered="#{searchParameters.spe.sortStatus != null and searchParameters.spe.sortStatus}"/>
+                                    <h:outputText value="(d)" rendered="#{searchParameters.spe.sortStatus != null and !searchParameters.spe.sortStatus}"/>
+                                </t:div>
+                            </f:facet>
+                            <h:outputText value="#{item.statusName}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <t:div>
+                                    <h:commandLink action="#{searchParameters.sortAsigneeAction}">
+                                        <h:outputText value="#{bundle['application.view.assignedName']}"/>
+                                    </h:commandLink>
+                                    <h:outputText value="(a)" rendered="#{searchParameters.spe.sortAsignee != null and searchParameters.spe.sortAsignee}"/>
+                                    <h:outputText value="(d)" rendered="#{searchParameters.spe.sortAsignee != null and !searchParameters.spe.sortAsignee}"/>
+                                </t:div>
+                            </f:facet>
+                            <h:outputText value="#{item.asignee}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <t:div>
+                                    <h:commandLink action="#{searchParameters.sortVersionAction}">
+                                        <h:outputText value="#{bundle['application.view.version']}"/>
+                                    </h:commandLink>
+                                    <h:outputText value="(a)" rendered="#{searchParameters.spe.sortVersion != null and searchParameters.spe.sortVersion}"/>
+                                    <h:outputText value="(d)" rendered="#{searchParameters.spe.sortVersion != null and !searchParameters.spe.sortVersion}"/>
+                                </t:div>
+                            </f:facet>
+                            <h:outputText value="#{item.version}"/>
+                        </h:column>
+
+                        <h:column >
+                            <f:facet name="header">
+                                <t:div>
+                                    <h:commandLink action="#{searchParameters.sortEditDateAction}">
+                                        <h:outputText value="#{bundle['application.view.lastEdit']}"/>
+                                    </h:commandLink>
+                                    <h:outputText value="(a)" rendered="#{searchParameters.spe.sortEditDate != null and searchParameters.spe.sortEditDate}"/>
+                                    <h:outputText value="(d)" rendered="#{searchParameters.spe.sortEditDate != null and !searchParameters.spe.sortEditDate}"/>
+                                </t:div>
+                            </f:facet>
+                            <h:outputText value="#{item.editDate}">
+                                <f:convertDateTime dateStyle="medium" pattern="yyyy.MM.dd"  timeZone="#{userHandler.timeZone}"/>
+                            </h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <t:div>
+                                    <h:commandLink action="#{searchParameters.sortTypeAction}">
+                                        <h:outputText value="#{bundle['application.list.type']}"/>
+                                    </h:commandLink>
+                                    <h:outputText value="(a)" rendered="#{searchParameters.spe.sortType != null and searchParameters.spe.sortType}"/>
+                                    <h:outputText value="(d)" rendered="#{searchParameters.spe.sortType != null and !searchParameters.spe.sortType}"/>
+                                </t:div>
+                            </f:facet>
+                            <h:outputText value="#{item.eventName}"/>
+                        </h:column>
+
+                        <h:column rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                            <f:facet name="header">
+                                <h:outputText value=" "/>
+                            </f:facet>
+
+                            <h:commandLink action="#{ticketAccess.deleteTicket}" onclick="if(!confirm('?')){ return false;}" rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                                <f:param binding="#{ticketAccess.ticketIdParameter}" name="ticketId" value="#{item.id}"/>
+                                <h:outputText value="X"/>
+                            </h:commandLink>
+
+                        </h:column>
+                    </h:dataTable>
+
+
+                    <h:commandLink id="previous"  action="#{searchParameters.previous}" value="&lt;&lt;" rendered="#{searchParameters.page != 0}" >
+                        <f:param name="page" value="#{searchParameters.page}"/>
+                    </h:commandLink>
+
+                    &nbsp;
+
+                    <h:commandLink id="next" action="#{searchParameters.next}" value="&gt;&gt;"  rendered="#{!searchParameters.lastEmpty}" >
+                        <f:param name="page" value="#{searchParameters.page}"/>
+                    </h:commandLink>
+
+                    <t:saveState value="#{searchParameters}"/>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

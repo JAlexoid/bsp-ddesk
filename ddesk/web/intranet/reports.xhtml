@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="reports"/>
+                </ui:include>
+            </ui:define>
+
+
+
+            <ui:define name="content">
+
+                <h4><h:outputText value="#{bundle['application.private.reports']}"/></h4>
+
+                <h:outputLink value="clientHourReport.jsf">
+                    <h:outputText value="#{bundle['application.report.clientTime']}"/>
+                </h:outputLink><br/>
+                
+                <h:outputLink value="lateTasks.jsf">
+                    <h:outputText value="#{bundle['application.view.late']}"/>
+                </h:outputLink><br/>
+                
+                <h:outputLink value="ticketListReport.jsf">
+                    <h:outputText value="#{bundle['application.list.title.detail']}"/>
+                </h:outputLink><br/>
+                
+                <h:outputLink value="workerHourReport.jsf">
+                    <h:outputText value="#{bundle['application.report.workerTime']}"/>
+                </h:outputLink><br/>
+                
+                <h:outputLink value="clientHourReport.jsf">
+                    <h:outputText value="#{bundle['application.report.clientTime']}"/>
+                </h:outputLink><br/> 
+                
+                <h:outputLink value="weeksView.jsf">
+                    <h:outputText value="#{bundle['application.view.weeksView']}"/>
+                </h:outputLink><br/> 
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

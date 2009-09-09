@@ -1,0 +1,723 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config>
+
+    <application>
+        <message-bundle>messages</message-bundle>
+        <message-bundle>version</message-bundle>
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>ru</supported-locale>
+            <supported-locale>lt</supported-locale>
+        </locale-config>
+        <view-handler>
+            com.sun.facelets.FaceletViewHandler
+        </view-handler>
+    </application>
+
+    <lifecycle>
+        <phase-listener>lt.bsprendimai.ddesk.servlets.FacesLocaleListener</phase-listener>
+    </lifecycle>
+
+    <managed-bean>
+        <managed-bean-name>userHandler</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.UserHandler</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>userLocale</property-name>
+            <value>#{sessionScope.selectedLocale}</value>
+        </managed-property>
+
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>clientAccessor</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.ClientAccessor</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>userHandler</property-name>
+            <value>#{userHandler}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>ticketAccess</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.TicketAccessor</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>userHandler</property-name>
+            <value>#{userHandler}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>clientAccessor</property-name>
+            <value>#{clientAccessor}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>projects</property-name>
+            <value>#{projects}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>ticketAccessProxy</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.TicketAccessProxy</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>ticketAccess</property-name>
+            <value>#{ticketAccess}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>ticketId</property-name>
+            <value>#{param.ticketId}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>timerId</property-name>
+            <value>#{param.timerId}</value>
+        </managed-property>
+    </managed-bean>
+
+
+
+    <managed-bean>
+        <managed-bean-name>clientAccessProxy</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.ClientAccessProxy</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>clientAccessor</property-name>
+            <value>#{clientAccessor}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>companyId</property-name>
+            <value>#{param.companyId}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>personId</property-name>
+            <value>#{param.personId}</value>
+        </managed-property>
+    </managed-bean>
+
+
+    <managed-bean>
+        <managed-bean-name>ticketParameters</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.TicketParameters</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>userHandler</property-name>
+            <value>#{userHandler}</value>
+        </managed-property>
+    </managed-bean>
+
+
+    <managed-bean>
+        <managed-bean-name>ticketParameterProxy</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.TicketParameterProxy</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>ticketParameters</property-name>
+            <value>#{ticketParameters}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>status</property-name>
+            <value>#{param.status}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>priority</property-name>
+            <value>#{param.priority}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>eventType</property-name>
+            <value>#{param.eventType}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>severity</property-name>
+            <value>#{param.severity}</value>
+        </managed-property>
+
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>parameters</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.ParameterAccess</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>userHandler</property-name>
+            <value>#{userHandler}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>language</property-name>
+            <value>#{param.lang}</value>
+        </managed-property>
+    </managed-bean>
+
+
+    <managed-bean>
+        <managed-bean-name>configurer</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.Configurer</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>userHandler</property-name>
+            <value>#{userHandler}</value>
+        </managed-property>
+    </managed-bean>
+
+
+    <managed-bean>
+        <managed-bean-name>reporter</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.djdbc.ReportAccessor</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>userHandler</property-name>
+            <value>#{userHandler}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>searchParameters</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.SearchParameters</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>ti</property-name>
+            <value>#{ticketAccess}</value>
+        </managed-property>
+    </managed-bean>
+
+
+    <managed-bean>
+        <managed-bean-name>weekView</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.TicketWeekView</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>userHandler</property-name>
+            <value>#{userHandler}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>ticketAccess</property-name>
+            <value>#{ticketAccess}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>hacks</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.jsf.JSFHacks</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>uh</property-name>
+            <value>#{userHandler}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>pr</property-name>
+            <value>#{projects}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>ti</property-name>
+            <value>#{ticketAccess}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>projects</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.ProjectAccessor</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>userHandler</property-name>
+            <value>#{userHandler}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>projectAccessorProxy</managed-bean-name>
+        <managed-bean-class>lt.bsprendimai.ddesk.ProjectAccessorProxy</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>projects</property-name>
+            <value>#{projects}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>projectId</property-name>
+            <value>#{param.projectId}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>moduleId</property-name>
+            <value>#{param.moduleId}</value>
+        </managed-property>
+    </managed-bean>
+
+
+
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>editTicket</from-outcome>
+            <to-view-id>/editTicket.xhtml</to-view-id>
+        </navigation-case>
+
+
+        <navigation-case>
+            <from-outcome>newTicket</from-outcome>
+            <to-view-id>/newTicket.xhtml</to-view-id>
+        </navigation-case>
+
+
+
+        <navigation-case>
+            <from-outcome>list</from-outcome>
+            <to-view-id>/ticketList.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/*</from-view-id>
+
+        <navigation-case>
+            <from-outcome>list</from-outcome>
+            <to-view-id>/intranet/ticketList.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>clientList</from-outcome>
+            <to-view-id>/intranet/clientList.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/index.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>ticket</from-outcome>
+            <to-view-id>/intranet/viewTicket.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>timer</from-outcome>
+            <to-view-id>/intranet/editTimer.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+
+
+    <navigation-rule>
+        <from-view-id>/ticketList.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/ticketList.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>fail</from-action>
+            <to-view-id>/ticketList.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/viewTicket.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/viewTicket.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/changeInfo.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>fail</from-outcome>
+            <to-view-id>/changeInfo.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/changeInfo.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/changePassword.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>fail</from-outcome>
+            <to-view-id>/changePassword.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/changePassword.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>intranet</from-outcome>
+            <to-view-id>/intranet/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/indexRedirector.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule>
+        <from-view-id>/intranet/editClient.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/viewClient.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/editPerson.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/viewClient.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule>
+        <from-view-id>/intranet/editTicket.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/ticketList.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>view</from-outcome>
+            <to-view-id>/intranet/viewTicket.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/newTicket.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/viewClient.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/newPerson.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/viewClient.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/newClient.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/clientList.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/removeTicket.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/ticketList.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/removeTicket.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/ticketList.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/viewClient.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/viewClient.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/ticketList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>view</from-outcome>
+            <to-view-id>/intranet/ticketList.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule>
+        <from-view-id>/intranet/ticketListPerson.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/ticketListPerson.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>list</from-outcome>
+            <to-view-id>/intranet/ticketListPerson.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/ticketListReport.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/ticketListReport.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>list</from-outcome>
+            <to-view-id>/intranet/ticketListReport.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/editEvt.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/evtTypes.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/newEvt.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/evtTypes.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/evtTypes.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/evtTypes.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/editPriority.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/priorities.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/newPriority.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/priorities.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/priorities.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/priorities.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/newStatus.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/statuses.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/editStatus.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/statuses.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/statuses.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/statuses.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/newSeverity.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/severities.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/editSeverity.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/severities.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/params/severities.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/params/severities.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule>
+        <from-view-id>/intranet/newProject.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/projects.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/editProject.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/projects.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/projects.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/projects.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule>
+        <from-view-id>/editTicket.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ticket</from-outcome>
+            <to-view-id>/viewTicket.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/newTimer.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/timerList.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/editTimer.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/timerList.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/timerList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/timerList.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/newModule.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/projectModules.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/editModule.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/projectModules.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/intranet/projectModules.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/intranet/projectModules.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <converter>
+        <converter-id>integerConverter</converter-id>
+        <converter-class>
+            javax.faces.convert.IntegerConverter
+        </converter-class>
+    </converter>
+
+    <validator>
+        <validator-id>ltDouble</validator-id>
+        <validator-class>lt.bsprendimai.ddesk.jsf.CommaDecimalNumberConverter</validator-class>
+    </validator>
+
+
+</faces-config>

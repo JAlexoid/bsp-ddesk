@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.org/dwr/dwr20.dtd">
+<dwr>
+    <allow>
+        <create creator="jsf" javascript="ProjectAccessor">
+        	<param name="managedBeanName" value="projects"/>
+            <param name="class" value="lt.bsprendimai.ddesk.ProjectAccessor"/>
+        </create>
+        <convert converter="bean" match="lt.bsprendimai.ddesk.dao.ProjectModule">
+            <param name="include" value="id,module"/>
+        </convert>
+
+    	<convert converter="exception" match="java.lang.Exception"/>
+   	 <convert converter="bean" match="java.lang.StackTraceElement"/>
+
+    </allow>
+</dwr>

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+
+        <ui:composition template="/templates/public.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+            <ui:define name="content">
+                <h3 title="List"><h:outputText value="#{bundle['application.list.title']}"/></h3>
+                <h:form>
+
+                    <h:dataTable var="item"
+                        columnClasses="dataHighlightSmall"
+                        headerClass="dataHeaderSmall"
+                        style="width: 100%;}"
+                        value="#{ticketAccess.ticketList}">
+                        <h:column>
+                            <f:facet name="header">
+                                <f:verbatim>ID</f:verbatim>
+                            </f:facet>
+                            <h:outputText rendered="#{item.closedState}"
+                            styleClass="taskClosed" value="#{item.uniqueId}" />
+
+                            <h:outputText rendered="#{item.acceptedState}"
+                            styleClass="taskAccepted" value="#{item.uniqueId}" />
+
+                            <h:outputText rendered="#{item.newState}"
+                            styleClass="taskNew" value="#{item.uniqueId}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.name']}"/>
+                            </f:facet>
+                            <h:outputLink value="viewTicket.jsf">
+                                <h:outputText value="#{item.name}"/>
+                                <f:param name="ticketId" value="#{item.id}"/>
+                            </h:outputLink>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.reportDate']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.reportDate}">
+                                <f:convertDateTime pattern="yyyy.MM.dd HH:mm:ss" timeZone="#{userHandler.timeZone}"/>
+                            </h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.statusName']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.statusName}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value=" "/>
+                            </f:facet>
+
+                            <h:commandLink action="#{ticketAccess.deleteTicket}" onclick="if(!confirm('?')){ return false;}" rendered="#{!item.closedState and !item.acceptedState}">
+                                <f:param binding="#{ticketAccess.ticketIdParameter}" name="ticketId" value="#{item.id}"/>
+                                <h:outputText value="X"/>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

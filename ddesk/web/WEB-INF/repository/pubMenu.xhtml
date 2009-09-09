@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core">
+    <body>
+
+        This text above will not be displayed.
+
+        <ui:composition>
+
+            <h:form id="menuForm" styleClass="styled">
+                <h:outputLink id="homeLink" value="index.jsf" styleClass="" >
+                    <h:outputText value="#{bundle['application.new']}"/>
+                </h:outputLink>
+
+                <h:outputLink id="listLink" value="ticketList.jsf" styleClass="" >
+                    <h:outputText value="#{bundle['application.list']}"/>
+                </h:outputLink>
+		
+                <h:outputLink id="perefLink" value="changeInfo.jsf" styleClass="" >
+                    <h:outputText value="#{bundle['application.user.changeInfo']}"/>
+                </h:outputLink>
+											
+                <h:commandLink id="logout" action="#{userHandler.logout}"  value="#{bundle['application.logout']}" styleClass="button"  >
+                </h:commandLink>
+            </h:form>
+
+        </ui:composition>
+
+        This text below will also not be displayed.
+
+    </body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="lt.bsprendimai.ddesk.dao.Timekeeping" table="timekeeping">
+        <id column="id" name="id" type="java.lang.Integer">
+            <generator class="sequence">
+                <param name="sequence">timekeeping_id_seq</param>
+            </generator>           
+        </id>
+        
+        <property column="name" length="100" name="name" not-null="true" type="java.lang.String"/>
+        <property column="person" length="4" name="person" type="java.lang.Integer"/>
+        <property column="start" length="4" name="start" not-null="true" type="java.util.Date"/>
+        <property column="finish" length="4" name="finish" not-null="true" type="java.util.Date"/>
+        <property column="description" name="description" type="java.lang.String"/>
+    </class>
+</hibernate-mapping>

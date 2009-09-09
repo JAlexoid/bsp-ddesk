@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+        <ui:composition template="/templates/private.xhtml">
+            <f:loadBundle basename="messages" var="bundle"/>
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="viewTicket"/>
+                </ui:include>
+            </ui:define>
+            <ui:define name="route">
+                <h:outputLink value="viewClient.jsf">
+                    <h:outputText value="#{bundle['application.company.company']}"/>
+                    <h:outputText value=":"/>
+                    <h:outputText value="#{ticketAccess.selectedInfo.companyName}"/>
+                    <f:param name="companyId" value="#{ticketAccess.selectedInfo.company}"/>
+                </h:outputLink>
+                &gt;
+                <h:outputText value="#{ticketAccess.selectedInfo.uniqueId}"/>
+                <h:outputText value=":"/>
+                <h:outputText value="#{ticketAccess.selectedInfo.name}"/>
+            </ui:define>
+            <ui:define name="content">
+                <h:outputText value="#{ticketAccess.reselect}"/>
+                <h:form id="editPrio" >
+                    <input type="hidden" value="#{ticketAccess.id}" name="ticketId"/>
+                    <h3 id="idea" title="Form">#{bundle['application.view']}</h3>
+                    <table style="width:100%;}">
+                        <tr>
+                            <td colspan="5">
+                                <h:outputText rendered="#{ticketAccess.selectedInfo.closedState}"
+                                styleClass="taskClosed" value="#{ticketAccess.selectedInfo.uniqueId}" />
+                                <h:outputText rendered="#{ticketAccess.selectedInfo.acceptedState}"
+                                styleClass="taskAccepted" value="#{ticketAccess.selectedInfo.uniqueId}" />
+                                <h:outputText rendered="#{ticketAccess.selectedInfo.newState}"
+                                styleClass="taskNew" value="#{ticketAccess.selectedInfo.uniqueId}" />
+                                &nbsp;
+                                <h:outputText rendered="#{!ticketAccess.selectedInfo.chargeable}"
+                                value="#{bundle['application.view.notchargeable']}" />
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.view.name']}
+                                &nbsp;
+                            </td>
+                            <td colspan="4" class="dataCell">
+                                #{ticketAccess.selectedInfo.name}
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.view.project']}:
+                                &nbsp;
+                            </td>
+                            <td  class="dataCell">
+                                #{ticketAccess.selectedInfo.projectName}
+                                &nbsp;
+                            </td>
+                            <td class="separatorCell" >&nbsp;
+                            </td>
+                            <td class="dataHeader">
+                                #{bundle['application.view.projectModule']}:
+                            </td>
+                            <td class="dataCell">
+                                #{ticketAccess.selectedInfo.moduleName}
+                                &nbsp;
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.view.severity']}:
+                                &nbsp;
+                            </td>
+                            <td  class="dataCell">
+                                #{ticketAccess.selectedInfo.severityName}
+                                &nbsp;
+                            </td>
+                            <td class="separatorCell" >&nbsp;
+                            </td>
+                            <td class="dataHeader">
+                                #{bundle['application.view.version']}:
+                            </td>
+                            <td class="dataCell">
+                                <h:outputText value="#{ticketAccess.selectedInfo.version}">
+                                </h:outputText>
+                                &nbsp;
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.view.reportDate']}:
+                                &nbsp;
+                            </td>
+                            <td  class="dataCell">
+                                <h:outputText value="#{ticketAccess.selectedInfo.reportDate}" >
+                                    <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd HH:mm"   timeZone="#{userHandler.timeZone}"/>
+                                </h:outputText>
+                                &nbsp;
+                            </td>
+                            <td class="separatorCell" >&nbsp;
+                            </td>
+                            <td class="dataHeader">
+                                #{bundle['application.view.priorityName']}:
+                                &nbsp;
+                            </td>
+                            <td class="dataCell">
+                                #{ticketAccess.selectedInfo.priorityName}
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.view.companyName']}:
+                                &nbsp;
+                            </td>
+                            <td class="dataCell">
+                                <h:outputLink id="viewClient" value="viewClient.jsf">
+                                    <h:outputText value="#{ticketAccess.selectedInfo.companyName}"/>
+                                    <f:param name="companyId" value="#{ticketAccess.selectedInfo.company}"/>
+                                </h:outputLink>
+                                &nbsp;
+                            </td>
+                            <td class="separatorCell">&nbsp;
+                            </td>
+                            <td class="dataHeader">
+                                #{bundle['application.view.personName']}
+                                &nbsp;
+                            </td>
+                            <td class="dataCell">
+                                #{ticketAccess.selectedInfo.personName}
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.view.assignedName']}:
+                                &nbsp;
+                            </td>
+                            <td class="dataCell">
+                                #{ticketAccess.selectedInfo.asignee}
+                                &nbsp;
+                            </td>
+                            <td class="separatorCell">&nbsp;
+                            </td>
+                            <td class="dataHeader">
+                                #{bundle['application.view.assignedDate']}:
+                            </td>
+                            <td class="dataCell">
+                                <h:outputText value="#{ticketAccess.selectedInfo.assignedDate}" >
+                                    <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd HH:mm"   timeZone="#{userHandler.timeZone}"/>
+                                </h:outputText>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.view.statusName']}:
+                                &nbsp;
+                            </td>
+                            <td class="dataCell">
+                                #{ticketAccess.selectedInfo.statusName}
+                                &nbsp;
+                                <h:outputText value="#{ticketAccess.selectedInfo.dateClosed}">
+                                    <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd HH:mm"  timeZone="#{userHandler.timeZone}"/>
+                                </h:outputText>
+                            </td>
+                            <td class="separatorCell">&nbsp;
+                            </td>
+                            <td class="dataHeader">
+                                #{bundle['application.view.eventName']}:
+                                &nbsp;
+                            </td>
+                            <td class="dataCell">
+                                #{ticketAccess.selectedInfo.eventName}
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="dataHeader">
+                                #{bundle['application.view.requestNotes']}:
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <div class="framed">
+                                    <t:outputText value="#{ticketAccess.selectedInfo.descriptionHTML}"  escape="false"/>
+                                    &nbsp;
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.form.planedDate']}
+                            </td>
+                            <td class="dataCell" >
+                                <h:outputText value="#{ticketAccess.selectedInfo.planedDate}" >
+                                    <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd HH:mm"   timeZone="#{userHandler.timeZone}"/>
+                                </h:outputText>
+                                &nbsp;
+                            </td>
+                            <td class="separatorCell" >&nbsp;
+                            </td>
+                            <td class="dataHeader">
+                                #{bundle['application.form.actualDate']}
+                            </td>
+                            <td class="dataCell">
+                                <h:outputText value="#{ticketAccess.selectedInfo.actualDate}" >
+                                    <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd HH:mm"   timeZone="#{userHandler.timeZone}"/>
+                                </h:outputText>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.form.worktime']}
+                            </td>
+                            <td class="dataCell">
+                                #{ticketAccess.selected.worktime}
+                                &nbsp;
+                            </td>
+                            <td class="separatorCell">&nbsp;
+                            </td>
+                            <td class="dataHeader">
+                                #{bundle['application.form.additionalTime']}
+                                &nbsp;
+                            </td>
+                            <td class="dataCell">
+                                #{ticketAccess.selected.additionalTime}
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.form.serviceCode']}
+                            </td>
+                            <td class="dataCell">
+                                #{ticketAccess.selected.serviceCode}&nbsp;
+                            </td>
+                            <td class="separatorCell">&nbsp;
+                            </td>
+                            <td class="dataHeader">
+                                #{bundle['application.form.reporterEmail']}
+                            </td>
+                            <td class="dataCell">&nbsp;
+                                #{ticketAccess.selected.reporterMail}
+
+                            </td>
+                        </tr>
+                        <c:if test="#{ticketAccess.selected.acceptedState}">
+                            <tr class="dataHeader">
+                                <td colspan="5">
+                                    #{bundle['application.view.acceptedNotes']}:
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <t:outputText value="#{ticketAccess.selectedInfo.acceptedNotesHTML}"  escape="false"/>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </c:if>
+                        <c:if test="#{ticketAccess.selected.dateClosed != null}">
+                            <tr class="dataHeader">
+                                <td colspan="5">
+                                    #{bundle['application.view.resolution']}:
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="framed">
+                                        <t:outputText value="#{ticketAccess.selectedInfo.resolutionHTML}"  escape="false"/>
+                                        &nbsp;
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:if>
+                        <tr>
+                            <td colspan="5">
+                                <a href="javascript:clickView('commentCell');">#{bundle['application.edit.comment']}</a> :
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr style="display: none;}" id="commentCell">
+                            <td colspan="5" >
+                                <h:inputTextarea id="adescription" value="#{ticketAccess.comment}" style="width: 100%; height: 150px;}" ></h:inputTextarea>
+                                <br/>
+                                <h:commandButton id="submit" action="#{ticketAccess.comment}" value="#{bundle['application.form.submitComment']}" styleClass="button" />
+                                &nbsp;&nbsp;&nbsp;
+                                #{bundle['application.edit.commentSend']}:
+                                <h:selectBooleanCheckbox value="#{ticketAccess.informClient}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <t:dataList styleClass="historyList" value="#{ticketAccess.fullTicketHistory}" var="item">
+                                    <t:div styleClass="historyListSubel">
+                                        <t:outputText value="#{item}" escape="false"/>
+                                    </t:div>
+                                </t:dataList>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+
+                <t:div rendered="#{(!empty ticketAccess.selected.resolution) || ticketAccess.selected.dateClosed != null}">
+                    <script type="text/javascript">
+                        clickView('resolutiontCell');
+                    </script>
+                </t:div>
+                <t:div rendered="#{! empty ticketAccess.selected.acceptedNotes}">
+                    <script type="text/javascript">
+                        clickView('acceptCell');
+                    </script>
+                </t:div>
+
+            </ui:define>
+            <ui:define name="infoPane">
+                <h:outputLink id="edit" value="editTicket.jsf">
+                    <t:outputText value="#{bundle['application.view.edit']}"/>
+                    <f:param name="ticketId" value="#{ticketAccess.id}"/>
+                    <f:param name="companyId" value="#{ticketAccess.selected.company}"/>
+                </h:outputLink>
+                <br/>
+                <h:outputLink id="accept" value="acceptTask.jsf" rendered="#{!ticketAccess.selected.acceptedState}">
+                    <t:outputText value="#{bundle['application.view.accept']}"/>
+                    <f:param name="ticketId" value="#{ticketAccess.id}"/>
+                    <f:param name="companyId" value="#{ticketAccess.selected.company}"/>
+                </h:outputLink>
+                <br/>
+                <h:outputLink id="close" value="closeTask.jsf" rendered="#{!ticketAccess.selected.closedState }">
+                    <t:outputText value="#{bundle['application.view.close']}"/>
+                    <f:param name="ticketId" value="#{ticketAccess.id}"/>
+                    <f:param name="companyId" value="#{ticketAccess.selected.company}"/>
+                </h:outputLink>
+                <br/>
+                <!--h:outputLink value="pdfTicket"  target="_new" >
+                #{bundle['application.view.pdfTicket']}
+                <f:param name="ticketId" value="#{ticketAccess.id}"/>
+                </h:outputLink-->
+                <br/>
+                <h:outputLink value="reopenTask.jsf" rendered="#{ticketAccess.selected.closedState }">
+                    <t:outputText value="#{bundle['application.view.reopen']}"/>
+                    <f:param name="ticketId" value="#{ticketAccess.id}"/>
+                    <f:param name="companyId" value="#{ticketAccess.selected.company}"/>
+                </h:outputLink>
+                <br/>
+                <br/>
+                <h:outputLink id="newTicket" value="newTicket.jsf">
+                    <t:outputText value="#{bundle['application.client.newTicket']}"/>
+                    <f:param name="companyId" value="#{ticketAccess.selected.company}"/>
+                    <f:param name="ticketId" value="-1"/>
+                </h:outputLink>
+                <br/>
+                <ui:include src="/WEB-INF/repository/freeList.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

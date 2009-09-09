@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk"
+    xmlns:a="http://activelogic.eu/jsf/validations">
+
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+            <ui:define name="addedscripts">
+                <script type='text/javascript' src='#{contextName}/dwr/interface/ProjectAccessor.js' xml:spcae="preserve"> </script>
+                <script type='text/javascript' src='#{contextName}/intranet/intranet.js' xml:spcae="preserve"> </script>
+
+            </ui:define>
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="newCompanyTicket"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="route">
+                <h:outputLink value="viewClient.jsf">
+                    <h:outputText value="#{bundle['application.company.company']}"/>
+                    <h:outputText value=":"/>
+                    <h:outputText value="#{clientAccessor.selected.name}"/>
+                    <f:param name="companyId" value="#{clientAccessor.selected.id}"/>
+                </h:outputLink>
+                &gt;
+                <h:outputText value="#{bundle['application.client.newTicket']}"/>
+            </ui:define>
+
+            <ui:define name="content">
+
+                <ui:define name="addedscripts">
+                    <script type='text/javascript' src='#{contextName}/dwr/interface/ProjectAccessor.js' xml:spcae="preserve"> </script>
+                    <script type='text/javascript' src='#{contextName}/intranet/intranet.js' xml:spcae="preserve"> </script>
+                </ui:define>
+                <h:form id="editPrio" >
+                    <h3 id="idea" title="Form"><h:outputText value="#{bundle['application.new.indirect']}"/></h3>
+                    <table style="width:100%;}">
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.view.name']}"/>
+                            </td>
+                            <td class="dataCell">
+                                <h:inputText id="name" value="#{ticketAccess.selected.name}" required="true" style="width: 100%;}" />
+                                <h:message errorClass="error" id="nameMessages" for="name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.view.chargeable']}"/>:
+                            </td>
+                            <td class="dataCell">
+                                <h:selectBooleanCheckbox id="chageable" value="#{ticketAccess.selected.chargeable}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.view.project']}:
+                            </td>
+                            <td class="dataCell">
+                                <h:selectOneMenu id="project" value="#{ticketAccess.selected.project}" onchange="selectedProject(this)" >
+                                    <f:selectItems value="#{projects.projects}" />
+                                </h:selectOneMenu>
+                                <h:message errorClass="error" for="project"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                #{bundle['application.view.projectModule']}:
+                            </td>
+                            <td class="dataCell">
+                                <a:selectOneMenu id="moduleSelect" forceId="true" value="#{ticketAccess.selected.module}" >
+                                    <f:selectItems value="#{ticketAccess.modules}" />
+                                </a:selectOneMenu>
+                                <h:message errorClass="error" for="moduleSelect"/>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.view.priorityName']}"/>:
+                            </td>
+                            <td class="dataCell">
+                                <h:selectOneMenu id="priority" value="#{ticketAccess.selected.priority}">
+                                    <f:selectItems value="#{ticketParameters.prioritySelect}" />
+                                </h:selectOneMenu>
+                                <h:message errorClass="error" id="priorityMessages" for="priority"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+
+                            </td>
+                            <td class="dataCell">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.view.companyName']}"/>:
+                            </td>
+                            <td class="dataCell">
+                                <h:selectOneMenu id="company" value="#{ticketAccess.selected.company}">
+                                    <f:selectItems value="#{clientAccessor.companies}" />
+                                </h:selectOneMenu>
+                                <h:message errorClass="error" for="company"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.view.assignedName']}"/>:
+                            </td>
+                            <td class="dataCell">
+                                <h:selectOneMenu id="assignedTo" value="#{ticketAccess.selected.assignedTo}">
+                                    <f:selectItems value="#{clientAccessor.assignSelect}" />
+                                </h:selectOneMenu>
+                                <h:message errorClass="error" id="assignedToMessages" for="assignedTo"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.view.eventName']}"/>:
+                            </td>
+                            <td class="dataCell">
+                                <h:selectOneMenu id="type" value="#{ticketAccess.selected.type}"  required="true">
+                                    <f:selectItems value="#{ticketParameters.eventTypeSelect}" />
+                                </h:selectOneMenu>
+                                <h:message errorClass="error" for="type"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.form.planedDate']}"/>
+                            </td>
+                            <td class="dataCell" >
+
+                            	<t:inputDate id="planedDate" required="false" value="#{ticketAccess.selected.planedDate}" type="both" popupCalendar="false" ampm="false" timeZone="#{userHandler.timeZone}"/>
+                            	<!--
+                                <t:inputText id="planedDate" required="false" value="#{ticketAccess.selected.planedDate}">
+                                    <f:convertDateTime pattern="yyyy.MM.dd HH.mm.ss" timeZone="#{userHandler.timeZone}"/>
+                                </t:inputText>
+                                 -->
+                                <h:message errorClass="error" for="planedDate"/>
+                            </td>
+                        </tr>
+                        <tr class="dataHeader">
+                            <td colspan="2">
+                                <h:outputText value="#{bundle['application.view.requestNotes']}"/>:
+                            </td>
+                        </tr>
+                        <tr class="dataHeader">
+                            <td colspan="2" class="dataCell">
+                                <h:inputTextarea id="adescriptiona" value="#{ticketAccess.selected.description}" style="width: 100%; height: 150px;}" >
+                                </h:inputTextarea>
+                                <h:message errorClass="error" id="adescriptionaMessages" for="adescriptiona"/>
+                            </td>
+                        </tr>
+                        <tr class="dataHeader">
+                            <td colspan="2">
+                                <h:commandButton id="submit" action="#{ticketAccess.addIndirect}" value="#{bundle['application.form.submitCreate']}" styleClass="button" />
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

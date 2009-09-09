@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="timerList"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="content">
+                <!-- CONTENT -->
+                <h4><h:outputText value="#{bundle['application.timers.title']}"/></h4>
+
+
+                <h:form>
+                    <t:saveState value="#{searchParameters}"/>
+                    <table width="100%">
+                        <tr>
+                            <th>
+                                <h:outputText value="#{bundle['application.timers.person']}"/>
+                            </th>
+
+                            <th>
+                                <h:outputText value="#{bundle['application.timers.date']}"/>
+                            </th>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <h:selectOneMenu value="#{searchParameters.person}" required="false" style="width:100%;}">
+                                    <f:selectItems value="#{clientAccessor.assignSelect}" />
+                                </h:selectOneMenu>
+                            </td>
+
+                            <td>
+                                <t:inputDate id="start" value="#{searchParameters.forDate}" type="date" popupCalendar="false" timeZone="#{userHandler.timeZone}"/>
+                                <h:message errorClass="error" for="start"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <h:commandButton action="#{searchParameters.apply}" value="#{bundle['application.list.search']}"/>
+                    <h:commandButton action="#{searchParameters.clear}" value="#{bundle['application.list.clear']}"/>
+
+
+                    <h:dataTable var="item" value="#{searchParameters.timerList}"
+                        headerClass="dataHeaderSmall">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}" />
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.timers.name']}"/>
+                            </f:facet>
+
+                            <h:outputLink value="editTimer.jsf">
+                                <h:outputText value="#{item.name}"/>
+                                <f:param name="timerId" value="#{item.id}"/>
+                            </h:outputLink>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.timers.start']}"/>
+                            </f:facet>
+
+                            <h:outputText value="#{item.start}">
+                                <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd HH:mm:ss"  timeZone="#{userHandler.timeZone}"/>
+                            </h:outputText>
+
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.timers.finish']}"/>
+                            </f:facet>
+
+                            <h:outputText value="#{item.finish}">
+                                <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd HH:mm:ss"  timeZone="#{userHandler.timeZone}"/>
+                            </h:outputText>
+
+                        </h:column>
+
+                        <h:column rendered="#{userHandler.user.id == item.person || (userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0)}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.timers.delete']}"/>
+                            </f:facet>
+
+                            <h:commandLink action="#{ticketAccess.deleteTimer}" onclick="if(!confirm('?')){ return false;}" rendered="#{userHandler.user.id == item.person || (userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0)}">
+                                <f:param binding="#{ticketAccess.timerIdParameter}" name="timerId" value="#{item.id}"/>
+                                <h:outputText value="X"/>
+                            </h:commandLink>
+
+                            <t:outputText value="#{hacks.fiveRowCell}" escape="false"/>
+                            <t:outputText value="#{item.description}"/>
+                            <t:outputText value="#{hacks.rowTerminator}" escape="false"/>
+
+                        </h:column>
+
+                    </h:dataTable>
+
+                </h:form>
+
+            </ui:define>
+
+            <ui:define name="infoPane">
+                <h:outputLink id="newTicket" value="newTimer.jsf">
+                    <h:outputText value="#{bundle['application.timers.newTimer']}"/>
+                    <f:param name="timerId" value="-1"/>
+                </h:outputLink>
+                <br/>
+                <ui:include src="/WEB-INF/repository/freeList.xhtml" />
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

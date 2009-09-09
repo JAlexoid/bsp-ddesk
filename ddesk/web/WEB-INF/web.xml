@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="ddesk" version="2.5">
+	<display-name>ddesk</display-name>
+	<context-param>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value>
+            /WEB-INF/faces-config.xml,/WEB-INF/faces-components.xml
+        </param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.LIBRARIES</param-name>
+		<param-value>
+            /WEB-INF/novalidators.taglib.xml;/WEB-INF/popmenu.taglib.xml
+        </param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.apache.myfaces.ALLOW_JAVASCRIPT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.apache.myfaces.PRETTY_HTML</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<filter>
+		<filter-name>extensionsFilter</filter-name>
+		<filter-class>org.apache.myfaces.component.html.util.ExtensionsFilter</filter-class>
+		<init-param>
+			<param-name>uploadMaxFileSize</param-name>
+			<param-value>100m</param-value>
+		</init-param>
+		<init-param>
+			<param-name>uploadThresholdSize</param-name>
+			<param-value>100k</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>jspAccessFilter</filter-name>
+		<filter-class>lt.bsprendimai.ddesk.servlets.HDRequestFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>sessionFilter</filter-name>
+		<filter-class>lt.bsprendimai.ddesk.servlets.HDSessionFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>characterEncoding</filter-name>
+		<filter-class>lt.bsprendimai.ddesk.servlets.CharacterEncoding</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>publicEntrance</filter-name>
+		<filter-class>lt.bsprendimai.ddesk.servlets.PublicRedirect</filter-class>
+	</filter>
+	<filter>
+		<filter-name>SSLAutoAuthFilter</filter-name>
+		<filter-class>lt.bsprendimai.ddesk.servlets.SSLAutoAuthFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>DwrFacesFilter</filter-name>
+		<filter-class>org.directwebremoting.faces.FacesExtensionFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>DwrFacesFilter</filter-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</filter-mapping>
+
+
+	<filter-mapping>
+		<filter-name>SSLAutoAuthFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>characterEncoding</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>jspAccessFilter</filter-name>
+		<url-pattern>*.xhtml</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>extensionsFilter</filter-name>
+		<url-pattern>*.jsf</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>publicEntrance</filter-name>
+		<url-pattern>/indexRedirector.jsf</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>extensionsFilter</filter-name>
+		<url-pattern>/faces/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+	</listener>
+	<listener>
+		<description>ServletContextListener</description>
+		<listener-class>lt.bsprendimai.ddesk.servlets.LocaleContextListener</listener-class>
+	</listener>
+	<listener>
+		<description>HttpSessionListener</description>
+		<listener-class>lt.bsprendimai.ddesk.servlets.SessionEndListener</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>ticketPrinter</servlet-name>
+		<servlet-class>lt.bsprendimai.ddesk.pdf.PDFTicketPrinter</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>dwr-invoker</servlet-name>
+		<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>activeReverseAjaxEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>initApplicationScopeCreatorsAtStartup</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>maxWaitAfterWrite</param-name>
+			<param-value>-1</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>certGenerator</servlet-name>
+		<servlet-class>lt.bsprendimai.ddesk.servlets.CertGenerator</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dwr-invoker</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ticketPrinter</servlet-name>
+		<url-pattern>/intranet/pdfTicket</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>certGenerator</servlet-name>
+		<url-pattern>/intranet/certGenerator</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>index.jsf</welcome-file>
+	</welcome-file-list>
+
+	<resource-ref>
+		<res-ref-name>jdbc/ddesk</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		<res-sharing-scope>Shareable</res-sharing-scope>
+	</resource-ref>
+
+
+
+</web-app>

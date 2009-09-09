@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+        This text above will not be displayed.
+
+        <ui:composition>
+            <h:outputText value="#{weekView.condInit}"/>
+                <t:schedule
+                value="#{weekView.model}"
+                id="schedule1"
+                rendered="true"
+                visibleEndHour="24"
+                visibleStartHour="0"
+                workingEndHour="18"
+                workingStartHour="9"
+                readonly="false"
+                tooltip="true"
+                actionListener="#{weekView.scheduleActionPerformed}"
+                headerDateFormat="yyyy-MM-dd"/>
+        </ui:composition>
+
+        This text below will also not be displayed.
+
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="lt.bsprendimai.ddesk.dao.CompanyContract" table="companycontracts">
+        <id column="id" name="id" type="java.lang.Integer">
+            <generator class="sequence">
+                <param name="sequence">companycontracts_id_seq</param>
+            </generator>
+        </id>
+        <property column="company" length="4" name="company" type="java.lang.Integer"/>
+        <property column="contractno" length="20" name="contractNo" type="java.lang.String"/>
+        <property column="contractdate" length="4" name="contractDate" type="java.util.Date"/>
+        <property column="expirydate" length="4" name="expiryDate" type="java.util.Date"/>
+        <property column="servicecode" length="20" name="serviceCode" type="java.lang.String"/>
+        <property column="serviceparams" name="serviceParams" type="java.lang.String"/>
+        <property column="billsum" length="4" name="billSum" type="java.lang.Integer"/>
+        <property column="billingperiod" length="4" name="billingPeriod" type="java.lang.Integer"/>
+        <property column="freehours" length="4" name="freeHours" type="java.lang.Integer"/>
+        <property column="hourlyrate" name="hourlyRate" type="java.lang.Double"/>
+        <property column="lastinvoicedate" length="4" name="lastInvoiceDate" type="java.util.Date"/>
+        <property column="notes" name="notes" type="java.lang.String"/>
+        <property column="responceTime" name="responceTime" type="java.lang.Double"/>
+        
+    </class>
+</hibernate-mapping>

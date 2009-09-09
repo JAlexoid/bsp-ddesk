@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="editPerson"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="route">
+                <h:outputLink value="viewClient.jsf">
+                    <h:outputText value="#{bundle['application.company.company']}"/>
+                    <h:outputText value=":"/>
+                    <h:outputText value="#{clientAccessor.selected.name}"/>
+                    <f:param name="companyId" value="#{clientAccessor.selected.id}"/>
+                </h:outputLink>
+                &gt;
+                <h:outputText value="#{bundle['application.company.person']}"/>:
+                <h:outputText value="#{clientAccessor.person.name}"/>
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form id="person">
+                    <ui:include src="/WEB-INF/repository/editPerson.xhtml"/>
+                    <input type="hidden" name="personId" value="#{clientAccessProxy.personId}"/>
+                    <h:commandButton id="submit" action="#{clientAccessor.updatePerson}" value="#{bundle['application.form.submitEdit']}" styleClass="button" />
+                </h:form>
+                
+            </ui:define>
+
+            <ui:define name="infoPane">
+                <h:outputLink value="certGenerator"  target="_new" >
+                    <h:outputText value="#{bundle['application.newCertificate']}"/>
+                </h:outputLink>
+                <br/>
+                <h:form id="pp">
+                    <h:commandLink id="go" action="#{clientAccessor.cancelCertificates}" value="#{bundle['application.cancelCertificates']}" styleClass="button" />
+                </h:form>
+                
+                <ui:include src="/WEB-INF/repository/freeList.xhtml" />
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>
+

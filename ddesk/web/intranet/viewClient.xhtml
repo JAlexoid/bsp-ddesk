@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="viewClient"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="route">
+                <h:outputText value="#{bundle['application.company.company']}"/> :
+                <h:outputText value="#{clientAccessor.selected.name}"/>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+
+                    <h4><h:outputText value="#{bundle['application.view.company']}"/></h4>
+                    <table width="100%">
+                        <tr>
+                            <td width="30%" class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.name']}"/>:
+                            &nbsp;</td>
+                            <td class="dataCell">
+                            <h:outputText id="name" value="#{clientAccessor.selected.name}"/>
+                            &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.adress']}"/>:
+                            &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"  class="dataCell">
+                            <h:outputText id="adress" value="#{clientAccessor.selected.adress}" >
+                            </h:outputText>
+
+                            &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"  class="dataHeader">
+
+                            <h:outputText value="#{bundle['application.company.billingAdress']}"/>:
+                            &nbsp;</td>
+                        </tr>
+                        <tr >
+                            <td colspan="2" class="dataCell">
+                            <h:outputText id="billingAdress" value="#{clientAccessor.selected.billingAdress}" >
+                            </h:outputText>
+                            &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+
+                            <h:outputText value="#{bundle['application.company.code']}"/>:
+                            &nbsp;</td>
+                            <td class="dataCell">
+                            <h:outputText id="code" value="#{clientAccessor.selected.code}" >
+                            </h:outputText>
+
+                            &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+
+                            <h:outputText value="#{bundle['application.company.vatcode']}"/>:
+                            &nbsp;</td>
+                            <td class="dataCell">
+                            <h:outputText id="vatcode" value="#{clientAccessor.selected.vatcode}" >
+                            </h:outputText>
+
+                            &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+
+                            <h:outputText value="#{bundle['application.company.distance']}"/>:
+                            &nbsp;</td>
+                            <td class="dataCell">
+                            <h:outputText id="distance" value="#{clientAccessor.selected.distance}" >
+                            </h:outputText>
+
+                            &nbsp;</td>
+                        </tr>
+                        <tr class="dataHeader">
+                            <td colspan="2">
+                            <h:outputText value="#{bundle['application.company.notes']}"/>:
+                            &nbsp;</td>
+                        </tr>
+                        <tr class="dataCell">
+                            <td colspan="2">
+                            <h:outputText id="notes" value="#{clientAccessor.selected.notes}" >
+                            </h:outputText>
+
+                            &nbsp;</td>
+                        </tr>
+
+                    </table>
+
+
+                    <t:div rendered="#{clientAccessor.contract != null}">
+                        <h4><h:outputText value="#{bundle['application.view.contract']}"/></h4>
+                        <table width="100%">
+                            <tr>
+                                <td class="dataHeader">
+                                    <h:outputText value="#{bundle['application.company.contractNo']}"/>:
+                                    &nbsp;
+                                </td>
+                                <td colspan="3" class="dataCell">
+                                    <h:outputText id="contractNo" value="#{clientAccessor.contract.contractNo}" >                                </h:outputText>
+
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="dataHeader">
+                                    <h:outputText value="#{bundle['application.company.contractDate']}"/>:
+                                    &nbsp;
+                                </td>
+                                <td class="dataCell">
+                                    <h:outputText id="contractDate" value="#{clientAccessor.contract.contractDate}" >
+                                        <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd"   timeZone="#{userHandler.timeZone}"/>
+                                    </h:outputText>
+                                    &nbsp;
+                                </td>
+                                <td class="dataHeader">
+                                    <h:outputText value="#{bundle['application.company.expiryDate']}"/>
+                                    :
+                                    &nbsp;
+                                </td>
+                                <td class="dataCell">
+                                    <h:outputText id="expiryDate" value="#{clientAccessor.contract.expiryDate}" >
+                                        <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd"   timeZone="#{userHandler.timeZone}"/>
+                                    </h:outputText>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="dataHeader">
+                                    <h:outputText value="#{bundle['application.company.serviceCode']}"/>:
+                                    &nbsp;
+                                </td>
+                                <td class="dataCell">
+                                    <h:outputText id="serviceCode" value="#{clientAccessor.contract.serviceCode}" >                                </h:outputText>
+                                    &nbsp;
+                                </td>
+                                <td class="dataHeader">
+                                    <h:outputText value="#{bundle['application.company.serviceParams']}"/>
+                                    :
+                                    &nbsp;
+                                </td>
+                                <td class="dataCell">
+                                    <h:outputText id="expirserviceParamsDate" value="#{clientAccessor.contract.serviceParams}" >
+                                    </h:outputText>
+                                    &nbsp;
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="dataHeader">
+                                    <h:outputText value="#{bundle['application.company.billSum']}"/>:
+                                    &nbsp;
+                                </td>
+                                <td class="dataCell">
+                                    <h:outputText id="billSum" value="#{clientAccessor.contract.billSum}" >                                </h:outputText>
+                                    &nbsp;
+                                </td>
+                                <td class="dataHeader">
+                                    <h:outputText value="#{bundle['application.company.billingPeriod']}"/>
+                                    :
+                                    &nbsp;
+                                </td>
+                                <td class="dataCell">
+                                    <h:outputText id="billingPeriod" value="#{clientAccessor.contract.billingPeriod}" > </h:outputText>
+                                    &nbsp;
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="dataHeader">
+                                    <h:outputText value="#{bundle['application.company.freeHours']}"/>:
+                                    &nbsp;
+                                </td>
+                                <td class="dataCell">
+                                    <h:outputText id="freeHours" value="#{clientAccessor.contract.freeHours}" >
+                                        <f:converter converterId="integerConverter" />
+                                    </h:outputText>
+                                    &nbsp;
+                                </td>
+                                <td class="dataHeader">
+                                    <h:outputText value="#{bundle['application.company.hourlyRate']}"/>
+                                    :
+                                    &nbsp;
+                                </td>
+                                <td class="dataCell">
+                                    <h:outputText id="hourlyRate" value="#{clientAccessor.contract.hourlyRate}" > </h:outputText>
+                                    &nbsp;
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="dataHeader">
+                                    <h:outputText value="#{bundle['application.company.lastInvoiceDate']}"/>:
+                                    &nbsp;
+                                    <h:outputText id="lastInvoiceDate" value="#{clientAccessor.contract.lastInvoiceDate}" >
+                                        <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd"  timeZone="#{userHandler.timeZone}"/>
+                                    </h:outputText>
+                                    &nbsp;
+                                </td>
+                                <td class="dataCell" colspan="3">
+                                    <h:outputText id="lastInvoiceDate2" value="#{clientAccessor.contract.lastInvoiceDate}" >
+                                        <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd"  timeZone="#{userHandler.timeZone}"/>
+                                    </h:outputText>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr class="dataHeader">
+                                <td colspan="4">
+                                    <h:outputText value="#{bundle['application.company.contract.notes']}"/>:
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr class="dataHeader">
+                                <td colspan="4" class="dataCell">
+                                    <h:outputText value="#{clientAccessor.contract.notes}" >
+                                    </h:outputText>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </table>
+                    </t:div>
+
+
+                    <h4>&nbsp;</h4>
+
+                    <h:dataTable var="item" value="#{clientAccessor.listPersons}">
+                        <h:column>
+                            <h:outputLink value="editPerson.jsf"  rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                                <h:outputText value="#{item.name}"/>
+                                <f:param name="personId" value="#{item.id}"/>
+                            </h:outputLink>
+                            <h:outputText value="#{item.name}"
+                            rendered="#{userHandler.user.loginLevel == null || userHandler.user.loginLevel != 0}"/>
+
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{item.position}"/>
+                            <f:verbatim>&nbsp;</f:verbatim>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{item.phoneNo}"/>
+                            <f:verbatim>&nbsp;</f:verbatim>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{item.email}"/>
+                            <f:verbatim>&nbsp;</f:verbatim>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{item.loginCode}"/>
+                            <f:verbatim>&nbsp;</f:verbatim>
+                        </h:column>
+                        <h:column>
+                            <h:commandLink action="#{clientAccessor.deletePerson}" onclick="if(!confirm('?')){ return false;}" rendered="#{(userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0) || clientAccessor.companyId != 0}">
+                                <f:param binding="#{clientAccessor.personIdParameter}" name="ticketId" value="#{item.id}"/>
+                                <h:outputText value="X"/>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+
+                </h:form>
+                <br/>
+
+            </ui:define>
+
+            <ui:define name="infoPane">
+
+                <br/>
+                <h:outputLink id="edit" value="editClient.jsf" rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                    <h:outputText value="#{bundle['application.client.editClient']}"/>
+                    <f:param name="companyId" value="#{clientAccessor.selected.id}"/>
+                </h:outputLink><br/>
+
+                <h:outputLink value="newPerson.jsf" rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                    <h:outputText value="#{bundle['application.company.newPerson']}"/>
+                    <f:param name="companyId" value="#{clientAccessor.selected.id}"/>
+                    <f:param name="personId" value="#{-1}"/>
+                </h:outputLink>
+                <br/>
+                <br/>
+                <br/>
+                <h:outputLink id="newTicket" value="newTicket.jsf">
+                    <h:outputText value="#{bundle['application.client.newTicket']}"/>
+                    <f:param name="companyId" value="#{clientAccessor.selected.id}"/>
+                    <f:param name="ticketId" value="-1"/>
+                </h:outputLink><br/>
+
+
+
+                <ui:include src="/WEB-INF/repository/freeList.xhtml" />
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

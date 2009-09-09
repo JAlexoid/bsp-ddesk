@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core">
+    <body>
+
+        This text above will not be displayed.
+
+        <ui:composition>
+
+            <table>
+                <tr>
+                    <td><h:outputText value="#{bundle['application.view.ticketTotal']}"/>:</td>
+                    <td class="number"><h:outputText value="#{ticketAccess.totalCount}"/></td>
+                </tr>
+            </table>
+
+            <h1 title="Sidebar"><h:outputText value="#{bundle['application.list.short']}"/></h1>
+
+            <c:forEach var="item" items="#{ticketAccess.topTicketList}">
+                <div>
+                    <c:choose>
+                        <c:when test="#{item.closedState}">
+                            <span class="taskClosed">#{item.uniqueId}</span>
+                        </c:when>
+                        <c:when test="#{item.acceptedState}">
+                            <span class="taskAccepted">#{item.uniqueId}</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="taskNew">#{item.uniqueId}</span>
+                        </c:otherwise>
+                    </c:choose>
+                    <h:outputText value="#{item.reportDate}">
+                        <f:convertDateTime pattern="yyyy.MM.dd HH:mm" timeZone="#{userHandler.timeZone}"/>
+                    </h:outputText>
+                    <br/>
+                    <h:outputLink value="viewTicket.jsf">
+                        <h:outputText value="#{item.name}"/>
+                        <f:param name="ticketId" value="#{item.id}"/>
+                    </h:outputLink>
+                    &nbsp;-&nbsp;
+                    <h:outputText value="#{item.descriptionTruncated}"/>
+                    <br/><br/>
+                </div>
+
+            </c:forEach>
+
+            <h:outputLink value="ticketList.jsf">
+                <h:outputText value="#{bundle['application.view.viewRestList']}"/>
+            </h:outputLink>
+        </ui:composition>
+
+        This text below will also not be displayed.
+
+    </body>
+</html>

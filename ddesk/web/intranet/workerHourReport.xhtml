@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui.param name="page" value="newPerson"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="route">
+                <h:outputLink value="reports.jsf">
+                    <h:outputText value="#{bundle['application.private.reports']}"/>
+                </h:outputLink>
+                &gt;
+                <h:outputText value="#{bundle['application.report.workerTime']}"/>
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h4><h:outputText value="#{bundle['application.report.workerTime']}"/></h4>
+
+                <h:form>
+                    <h:inputHidden value="#{reporter.show}"/>
+                    <t:saveState value="#{reporter}"/>
+
+                    <table width="100%">
+                        <tr>
+                            <th>
+                                <h:outputText value="#{bundle['application.view.worker']}"/>
+                            </th>
+
+                            <th>
+                                <h:outputText value="#{bundle['application.list.from']}"/>
+                            </th>
+                            <th>
+                                <h:outputText value="#{bundle['application.list.to']}"/>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:selectOneMenu value="#{reporter.personId}" id="worker" required="true"  style="width:100%;}">
+                                    <f:selectItems value="#{clientAccessor.assignSelect}" />
+                                </h:selectOneMenu>
+                                <h:message errorClass="error" for="worker"/>
+                            </td>
+
+                            <td>
+                                <t:inputDate required="true" id="startDate" value="#{reporter.start}" popupCalendar="true" type="date" timeZone="#{userHandler.timeZone}"/>
+                                <h:message errorClass="error" for="startDate"/>
+                            </td>
+                            <td>
+                                <t:inputDate id="endDate" required="true" value="#{reporter.end}" popupCalendar="true" type="date" timeZone="#{userHandler.timeZone}"/>
+                                <h:message errorClass="error" for="endDate"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <h:commandButton action="#{reporter.apply}" value="#{bundle['application.list.search']}"/>
+                    <h:commandButton action="#{reporter.clear}" value="#{bundle['application.list.clear']}"/>
+
+
+                    <h:dataTable var="item" value="#{reporter.workerReport}"
+                        columnClasses="dataHighlightSmall"
+                        headerClass="dataHeaderSmall">
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.company']}"/>
+                            </f:facet>
+                            <h:outputLink value="viewClient.jsf">
+                                <h:outputText value="#{item.name}"/>
+                                <f:param name="companyId" value="#{item.id}"/>
+                            </h:outputLink>
+
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.contractNo']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contractNo}"/>
+                        </h:column>
+
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.freeHours']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.freeHours}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.hourlyRate']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hourlyRate}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.recordNumber']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.recordNumber}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.totaltime']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.totaltime}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.addtime']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.addtime}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.usedtime']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.totaltime-item.freeHours}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.chargeable']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.chargeable}"/>
+                        </h:column>
+
+
+                    </h:dataTable>
+
+
+
+                </h:form>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

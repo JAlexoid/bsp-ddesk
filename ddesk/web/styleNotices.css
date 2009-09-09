@@ -1,0 +1,107 @@
+div.notice{
+	width: 100%;
+	background: #FFCECE;
+	padding: 0px 0px 4px 4px;
+}
+
+div.errorContainer{
+        clear: both;
+        text-align: left;
+        display: block;
+	width: 100%;
+}
+
+div.errorContainer table{
+        text-align: left;
+        display: table;
+	width: 100%;
+}
+
+div.errorContainer tbody{
+	width: 100%;
+}
+
+div.errorContainer .errorPart{
+        text-align: left;
+        font-weight: 900;
+        display: block;
+	width: 98%;
+	background: #FFCECE;
+        color: #E21C1E;
+	margin: 0px 0px 4px 4px;
+}
+
+div#contentPane div.notice h4{
+	padding: 4px;
+	margin: 4px;
+	font-size: 120%;
+	font-weight: bold;
+	color: #E21C1E;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: red;
+}
+
+.error{
+	width: 98%;
+	background: #FFCECE;
+        color: #E21C1E;
+	padding: 0px 0px 4px 4px;
+}
+
+div.errorContainer .infoPart{
+        text-align: left;
+        display: block;
+        font-weight: 900;
+	width: 100%;
+	background: #78CDF0;
+        color: #0A394C;
+	margin: 0px 0px 4px 4px;
+}
+
+
+div.errorContainer td{
+        text-align: left;
+	width: 100%;
+}
+
+div.errorContainer .infoPart td{
+        text-align: left;
+	width: 100%;
+	background: #78CDF0;
+        color: #0A394C;
+	margin: 0px 0px 4px 4px;
+}
+
+div.info{
+	width: 100%;
+	background: #78CDF0;
+        color: #0A394C;
+	padding: 0px 0px 4px 4px;
+}
+
+div.info a:link, div.info a:visited{
+  color: #0A394C;
+}
+
+div.info h4{
+	padding: 4px;
+	margin: 4px;
+	font-size: 120%;
+	font-weight: bold;
+	color: #004866;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: blue;
+}
+
+
+         div.optRuns{
+            display: none;
+            position: absolute;
+            background: white;
+            border: 1px solid black;
+            border-top: none;
+            padding: 2px;
+         }
+

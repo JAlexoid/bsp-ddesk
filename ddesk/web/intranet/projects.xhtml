@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="projects"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="content">
+                <!-- CONTENT -->
+                <h4><h:outputText value="#{bundle['application.list.projects']}"/></h4>
+
+
+
+                <h:form>
+
+                    <h:dataTable var="item" value="#{projects.projectList}"
+                        headerClass="dataHeaderSmall"
+                        columnClasses="anything,anything,tenPercent,anything,anything,tenPercent,tenPercent">
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.view.project']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"
+                            rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel != 0}"/>
+
+                            <h:outputLink value="editProject.jsf"
+                                rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                                <h:outputText value="#{item.name}" />
+                                <f:param value="#{item.id}" name="projectId"/>
+                            </h:outputLink>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.view.projectCode']}"/>
+                            </f:facet>
+                            #{item.code}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.view.version']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.version}">
+                            </h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.view.company']}"/>
+                            </f:facet>
+                            #{item.companyName}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.projects.manager']}"/>
+                            </f:facet>
+                            #{item.managerName}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value=" "/>
+                            </f:facet>
+                            <h:outputLink value="projectModules.jsf">
+                                <h:outputText value="#{bundle['application.view.projectModules']}"/>
+                                <f:param value="#{item.id}" name="projectId"/>
+                            </h:outputLink>
+                        </h:column>
+
+                        <h:column rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                            <f:facet name="header">
+                                <h:outputText value=" "/>
+                            </f:facet>
+
+                            <h:commandLink action="#{projects.deleteProject}" onclick="if(!confirm('?')){ return false;}" rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                                <f:param binding="#{projects.projectIdParameter}" name="projectId" value="#{item.id}"/>
+                                <h:outputText value="X"/>
+                            </h:commandLink>
+
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+
+            </ui:define>
+
+            <ui:define name="infoPane">
+
+                <h:outputLink value="newProject.jsf"
+                    rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                    <h:outputText value="#{bundle['application.project.new']}"/>
+                    <f:param name="projectId" value="-1"/>
+                </h:outputLink><br/>
+
+
+                <ui:include src="/WEB-INF/repository/freeList.xhtml" />
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

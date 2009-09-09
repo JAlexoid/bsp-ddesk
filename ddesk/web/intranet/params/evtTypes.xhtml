@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="evtTypes"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="content">
+                <!-- CONTENT -->
+                <h4>Events</h4>
+
+
+                <h:form>
+
+                    <h:dataTable var="item" value="#{ticketParameters.eventTypeList}"
+                        headerClass="dataHeaderSmall"
+                        columnClasses="anything,tenPercent">
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"
+                            rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel != 0}"/>
+
+                            <h:outputLink value="editEvt.jsf"
+                                rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                                <h:outputText value="#{item.name}" />
+                                <f:param value="#{item.id}" name="eventType"/>
+                            </h:outputLink>
+                        </h:column>
+
+                        <h:column rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.delete']}"/>
+                            </f:facet>
+                            <h:commandLink action="#{item.delete}" onclick="if(!confirm('?')){ return false;}">
+                                <h:outputText value="X"/>
+                            </h:commandLink>
+                        </h:column>
+
+                    </h:dataTable>
+
+                </h:form>
+
+            </ui:define>
+
+            <ui:define name="infoPane">
+
+                <h:outputLink value="newEvt.jsf"
+                    rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                    <h:outputText value="New"/>
+                    <f:param name="eventType" value="-1"/>
+                </h:outputLink><br/>
+
+
+                <ui:include src="/WEB-INF/repository/freeList.xhtml" />
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

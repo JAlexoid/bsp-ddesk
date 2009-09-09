@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk"
+    xmlns:pop="http://activelogic.eu/jsf/popMenu">
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                <ui:param name="page" value="lateTasks"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="route">
+                <h:outputLink value="reports.jsf">
+                    <h:outputText value="#{bundle['application.private.reports']}"/>
+                </h:outputLink>
+                &gt;
+                <h:outputText value="#{bundle['application.view.late']}"/>
+            </ui:define>
+
+            <ui:define name="content">
+                <pop:popMenuScript/>
+                <!-- CONTENT -->
+                <h4><h:outputText value="#{bundle['application.view.late']}"/></h4>
+
+                <h:form>
+                    <h:outputText value="#{bundle['application.view.worker']}"/>
+                    <h:selectOneMenu id="person" required="true" value="#{searchParameters.assigned}">
+                        <f:selectItems value="#{clientAccessor.assignSelect}" />
+                    </h:selectOneMenu>
+                    <h:message for="person" errorStyle="error"/>
+                    <h:commandButton action="#{searchParameters.apply}" value="#{bundle['application.list.search']}"/>
+
+                    <h:dataTable var="item" value="#{searchParameters.lateTicketList}"
+                        columnClasses="dataHighlightSmallX"
+                        headerClass="dataHeaderSmallX">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.name']}"/>
+                            </f:facet>
+                            <h:outputText rendered="#{!ticketAccess.selectedInfo.chargeable}"
+                            value="X" />
+
+                            <h:outputText rendered="#{item.closedState}"
+                            styleClass="taskClosed" value="#{item.uniqueId}" />
+
+                            <h:outputText rendered="#{item.acceptedState}"
+                            styleClass="taskAccepted" value="#{item.uniqueId}" />
+
+                            <h:outputText rendered="#{item.newState}"
+                            styleClass="taskNew" value="#{item.uniqueId}" />
+
+
+                            <pop:popMenu>
+                                <f:facet name="mainLink">
+                                    <h:outputLink value="viewTicket.jsf">
+                                        <h:outputText value="#{item.name}"/>
+                                        <f:param name="ticketId" value="#{item.id}"/>
+                                    </h:outputLink>
+                                </f:facet>
+
+                                <h:outputLink value="editTicket.jsf">
+                                    <t:outputText value="#{bundle['application.view.edit']}"/>
+                                    <f:param name="ticketId" value="#{ticketAccess.id}"/>
+                                    <f:param name="companyId" value="#{ticketAccess.selected.company}"/>
+                                </h:outputLink>
+
+                                <h:outputText value=" | " rendered="#{!item.acceptedState}"/>
+
+                                <h:outputLink value="acceptTask.jsf" rendered="#{!item.acceptedState}">
+                                    <t:outputText value="#{bundle['application.view.accept']}"/>
+                                    <f:param name="ticketId" value="#{item.id}"/>
+                                    <f:param name="companyId" value="#{item.company}"/>
+                                </h:outputLink>
+
+                                <h:outputText value=" | " rendered="#{!item.closedState }"/>
+
+                                <h:outputLink value="closeTask.jsf" rendered="#{!item.closedState }">
+                                    <t:outputText value="#{bundle['application.view.close']}"/>
+                                    <f:param name="ticketId" value="#{item.id}"/>
+                                    <f:param name="companyId" value="#{item.company}"/>
+                                </h:outputLink>
+
+                                <h:outputText value=" | " rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}"/>
+
+                                <h:commandLink
+                                    value="#{bundle['application.list.delete']}"
+                                    action="#{ticketAccess.deleteTicket}"
+                                    onclick="if(!confirm('?')){ return false;}"
+                                    rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                                    <f:param binding="#{ticketAccess.ticketIdParameter}" name="ticketId" value="#{item.id}"/>
+                                </h:commandLink>
+
+                            </pop:popMenu>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.reportDate']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.reportDate}">
+                                <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd HH:mm" timeZone="#{userHandler.timeZone}"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.planedDate']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.planedDate}">
+                                <f:convertDateTime dateStyle="medium"  pattern="yyyy.MM.dd HH:mm" timeZone="#{userHandler.timeZone}"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.companyName']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.companyName}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.priorityName']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.priorityName}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle['application.list.statusName']}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.statusName}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

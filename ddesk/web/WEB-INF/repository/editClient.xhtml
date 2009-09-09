@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <style type="text/css">
+        <!--
+        .dataHeader {
+        }
+        .dataCell {
+        }
+        .sparatorCell{}
+        -->
+    </style>
+    <body>
+
+        This text above will not be displayed.
+
+        <ui:composition>
+
+            <div>
+                <h4><h:outputText value="#{bundle['application.view.company']}"/></h4>
+                <table width="100%">
+                    <tr>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.name']}"/>:
+                        </td>
+                        <td class="dataCell">
+                            <h:inputText id="name" value="#{clientAccessor.selected.name}" required="true" >
+                            </h:inputText>
+                            <h:message errorClass="error" id="nameMessages" for="name"/>
+                        </td>
+                    </tr>
+                    <tr class="dataHeader">
+                        <td colspan="2">
+                            <h:outputText value="#{bundle['application.company.adress']}"/>:
+                        </td>
+                    </tr>
+                    <tr class="dataCell">
+                        <td colspan="2">
+                            <h:inputTextarea style="width: 100%; height: 150px;}" id="adress" value="#{clientAccessor.selected.adress}" >
+                            </h:inputTextarea>
+                            <h:message errorClass="error" id="adressMessages" for="adress"/>
+                        </td>
+                    </tr>
+                    <tr class="dataHeader">
+                        <td colspan="2">
+                            <h:outputText value="#{bundle['application.company.billingAdress']}"/>:
+                        </td>
+                    </tr>
+                    <tr class="dataCell">
+                        <td colspan="2">
+                            <h:inputTextarea style="width: 100%; height: 150px;}" id="billingAdress" value="#{clientAccessor.selected.billingAdress}"  >
+                            </h:inputTextarea>
+                            <h:message errorClass="error" id="billingAdressMessages" for="billingAdress"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.code']}"/>:
+                        </td>
+                        <td class="dataCell">
+                            <h:inputText id="code" value="#{clientAccessor.selected.code}" >
+                            </h:inputText>
+                            <h:message errorClass="error" id="codeMessages" for="code"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.vatcode']}"/>:
+                        </td>
+                        <td class="dataCell">
+                            <h:inputText id="vatcode" value="#{clientAccessor.selected.vatcode}" >
+                            </h:inputText>
+                            <h:message errorClass="error" id="vatcodeMessages" for="vatcode"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.distance']}"/>:
+                        </td>
+                        <td class="dataCell">
+                            <h:inputText id="distance" value="#{clientAccessor.selected.distance}">
+                            </h:inputText>
+                            <h:message errorClass="error" id="distanceMessages" for="distance"/>
+                        </td>
+                    </tr>
+                    <tr class="dataHeader">
+                        <td colspan="2">
+                            <h:outputText value="#{bundle['application.company.notes']}"/>:
+                        </td>
+                    </tr>
+                    <tr class="dataHeader">
+                        <td colspan="2" class="dataCell">
+                            <h:inputTextarea style="width: 100%; height: 150px;}" id="notes" value="#{clientAccessor.selected.notes}" >
+                            </h:inputTextarea>
+                        </td>
+                    </tr>
+                    <tr class="dataHeader">
+                        <td colspan="2" class="dataCell">
+                            <h:message errorClass="error" id="notesMessages" for="notes"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <h4><h:outputText value="#{bundle['application.view.contract']}"/></h4>
+                <table width="100%">
+                    <tr>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.contractNo']}"/>:
+                        </td>
+                        <td class="dataCell">
+                            <h:inputText id="contractNo" value="#{clientAccessor.contract.contractNo}">
+
+                            </h:inputText>
+                            <h:message errorClass="error" id="contractNoMessages" for="contractNo"/>
+                        </td>
+                        <td class="dataHeader">&nbsp;</td>
+                        <td class="dataCell">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.contractDate']}"/>:
+                        </td>
+                        <td colspan="3" class="dataCell">
+                            <t:inputDate popupCalendar="true" id="contractDate" value="#{clientAccessor.contract.contractDate}" type="date" timeZone="#{userHandler.timeZone}"/>
+                            <h:message errorClass="error" id="contractDateMessages" for="contractDate"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.expiryDate']}"/>
+                            :
+                        </td>
+                        <td colspan="3" class="dataCell">
+                            <t:inputDate popupCalendar="true" id="expiryDate" value="#{clientAccessor.contract.expiryDate}" type="date" timeZone="#{userHandler.timeZone}"/>
+                            <h:message errorClass="error" id="expiryDateMessages" for="expiryDate"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.serviceCode']}"/>:
+                        </td>
+                        <td class="dataCell">
+                            <h:inputText id="serviceCode" value="#{clientAccessor.contract.serviceCode}" >
+
+                            </h:inputText>
+                            <h:message errorClass="error" id="serviceCodeMessages" for="serviceCode"/>
+                        </td>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.serviceParams']}"/>
+                            :
+                        </td>
+                        <td class="dataCell">
+                            <h:inputText id="serviceParams" value="#{clientAccessor.contract.serviceParams}" >
+
+                            </h:inputText>
+                            <h:message errorClass="error" id="serviceParamsMessages" for="serviceParams"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.billSum']}"/>:
+                        </td>
+                        <td class="dataCell">
+                            <h:inputText id="billSum" value="#{clientAccessor.contract.billSum}" >
+
+                            </h:inputText>
+                            <h:message errorClass="error" id="billSumMessages" for="billSum"/>
+                        </td>
+                        <td class="dataHeader">
+                        <h:outputText value="#{bundle['application.company.billingPeriod']}"/>
+                        : </td>
+                        <td class="dataCell">
+                            <h:inputText id="billingPeriod" value="#{clientAccessor.contract.billingPeriod}" >
+                                <f:converter converterId="integerConverter" />
+                            </h:inputText>
+                            <h:message errorClass="error" id="billingPeriodMessages" for="billingPeriod"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.freeHours']}"/>:
+                        </td>
+                        <td class="dataCell">
+                            <h:inputText id="freeHours" value="#{clientAccessor.contract.freeHours}" >
+                                <f:converter converterId="integerConverter" />
+                            </h:inputText>
+                            <h:message errorClass="error" id="freeHoursMessages" for="freeHours"/>
+                        </td>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.hourlyRate']}"/>
+                            :
+                        </td>
+                        <td class="dataCell">
+                            <h:inputText id="hourlyRate" value="#{clientAccessor.contract.hourlyRate}"> </h:inputText>
+                            <h:message errorClass="error" id="hourlyRateMessages" for="hourlyRate"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.lastInvoiceDate']}"/>:
+                        </td>
+                        <td class="dataCell">
+
+                            <t:inputDate id="lastInvoiceDate" value="#{clientAccessor.contract.lastInvoiceDate}" type="date" popupCalendar="false" timeZone="#{userHandler.timeZone}"/>
+
+                        	<!--
+                            <h:inputText id="lastInvoiceDate" value="#{clientAccessor.contract.lastInvoiceDate}" >
+                                <f:convertDateTime pattern="yyyy.MM.dd" timeZone="#{userHandler.timeZone}"/>
+                            </h:inputText>
+                             -->
+                            <h:message errorClass="error" id="lastInvoiceDateMessages" for="lastInvoiceDate"/>
+                        </td>
+                        <td class="dataHeader">
+                            <h:outputText value="#{bundle['application.company.responceTime']}"/>
+                            :
+                        </td>
+                        <td class="dataCell">
+                            <h:inputText id="responceTime" value="#{clientAccessor.contract.responceTime}" > </h:inputText>
+                            <h:message errorClass="error" id="responceTimeMessages" for="responceTime"/>
+                        </td>
+                    </tr>
+
+
+                    <tr class="dataHeader">
+                        <td colspan="4">
+                            <h:outputText value="#{bundle['application.company.contract.notes']}"/>:
+                        </td>
+                    </tr>
+                    <tr class="dataCell">
+                        <td colspan="4" class="dataCell">
+                            <h:inputTextarea style="width: 100%; height: 150px;}" id="crnotes" value="#{clientAccessor.contract.notes}" >
+
+                            </h:inputTextarea>
+                            <h:message errorClass="error" id="crnotesMessages" for="crnotes"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </ui:composition>
+
+        This text below will also not be displayed.
+
+    </body>
+</html>

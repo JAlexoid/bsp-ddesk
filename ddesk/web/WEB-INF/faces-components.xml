@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config>
+    
+  <component>
+    <component-type>eu.activelogic.jsf.SelectOne</component-type>
+    <component-class>eu.activelogic.jsf.SelectOneNoValidations</component-class>
+  </component>
+    <component>
+    <component-type>eu.activelogic.jsf.PopMenu</component-type>
+    <component-class>eu.activelogic.jsf.popmenu.PopMenu</component-class>
+  </component>
+  <component>
+    <component-type>eu.activelogic.jsf.PopMenuScript</component-type>
+    <component-class>eu.activelogic.jsf.popmenu.PopMenuScript</component-class>
+  </component>
+  
+</faces-config>

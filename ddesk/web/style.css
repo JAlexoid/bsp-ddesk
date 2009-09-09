@@ -1,0 +1,335 @@
+td {
+	font-family: Verdana, Geneva, Arial, helvetica, sans-serif;
+}
+
+th {
+	font-family: Verdana, Geneva, Arial, helvetica, sans-serif;
+}
+
+
+body {
+        font-family: Verdana, Geneva, Arial, helvetica, sans-serif;
+	margin: 0px;
+	padding: 0px;
+	background: #E7E7E7;
+	font-size: 80%;
+}
+
+
+div#titleLinks{
+	text-align: right;
+	padding: 2px 5px 0px 0px;
+}
+
+div#titleHeader{
+	background: #003163;
+	color: white;
+}
+
+
+div#titleHeader a:link{
+	color: white;
+}
+
+div#titleHeader a:visited{
+	color: white;
+}
+
+div#titleHeader #title{
+	padding: 6px 6px 8px 10px;
+	color: white;
+	font-weight: 900;
+	font-size: 200%;
+}
+
+div#linkBar{
+	margin: 0px;
+	padding: 5px 10px 0px 10px;
+}
+
+div#linkBar .linkBackgroundInactive{
+	background:#174A84;
+	color: white;
+	font-weight: 700;
+	font-size: 100%;
+	padding: 3px 5px 4px 5px;
+	border: 1px #003163 solid;
+}
+
+div#linkBar .linkBackgroundInactive  a:link{
+	color: white;
+	font-weight: 700;
+	font-size: 100%;
+	text-decoration: none;
+}
+
+div#linkBar .linkBackgroundInactive  a:visited{
+	color: white;
+	font-weight: 700;
+	font-size: 100%;
+	text-decoration: none;
+}
+
+div#linkBar .linkBackgroundActive{
+	background: #E7E7E7;
+	color: #29AD37;
+	font-weight: 700;
+	font-size: 100%;
+	padding: 3px 5px 4px 5px;
+}
+
+div#linkBar .linkBackgroundActive  a:link{
+	color: #29AD37;
+	font-weight: 700;
+	font-size: 100%;
+	text-decoration: none;
+}
+
+div#linkBar .linkBackgroundActive  a:visited{
+	color: #29AD37;
+	font-weight: 700;
+	font-size: 100%;
+	text-decoration: none;
+}
+
+div#containerPane{
+	width: 100%;
+}
+
+div#contentPane{
+	float: left;
+	width: 72%;
+	margin: 20px 3px 0px 1%;
+	padding: 7px;
+	background: white;
+	border: 1px gray;
+}
+
+div#infoPane{
+	float: left;
+	clear: right;
+	width: 22%;
+	margin: 20px 2px 0px 0px;
+}
+
+div#copyPane{
+	background: #003163;
+	color: white;
+	clear: both;
+	margin: 0px;
+	padding: 7px;
+}
+
+div#copyPane a:link{
+	color: white;
+}
+
+div#copyPane a:visited{
+	color: white;
+}
+
+
+div#contentPane table{
+	width: 100%;
+	border: 0px;
+}
+
+div#contentPane table th{
+	background: #E7E7E7;
+	border-bottom: 1px #DD9701 solid;
+	text-align: left;
+        border-right: 2px #EEEEEE solid;
+}
+
+div#contentPane table td{
+	border-bottom: 1px #F3BA41 dotted;
+        border-right: 2px #EEEEEE solid;
+}
+
+div#contentPane table tr.doubled td{
+	border-bottom: 1px #F5EEB7 dotted;
+        border-right: 2px #EEEEEE solid;
+}
+
+
+span.separator{
+	color: gray;
+	margin: 0px 2px 0px 2px;
+}
+
+div#contentPane h4{
+	color: #100B4F;
+	padding: 4px;
+	margin: 4px;
+	font-size: 120%;
+	font-weight: bold;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: gray;
+}
+
+
+
+
+div#infoPane h4{
+	color: #100B4F;
+	padding: 4px;
+	margin: 4px;
+	font-size: 120%;
+	font-weight: bold;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: gray;
+}
+
+.taskNew{
+    background-color: red;
+    color: white;
+    padding: 2px;
+    font-size: 6.5pt;
+}
+
+.taskAccepted{
+    background-color: green;
+    color: white;
+    padding: 2px;
+    font-size: 6.5pt;
+}
+
+.taskClosed{
+    background-color: gray;
+    color: white;
+    padding: 2px;
+    font-size: 6.5pt;
+}
+
+table.smallSize td{
+    font-size: 80%;
+}
+
+table.smallSize th{
+    font-size: 80%;
+}
+
+
+
+.dataHighlightSmall{
+    font-size: 85%;
+
+}
+.dataHeaderSmall{
+    font-size: 75%;
+    font-weight: 700;
+}
+
+.dataHighlightXSmall{
+    font-size: 70%;
+}
+
+
+.dataHighlightSmallX{
+    font-size: 85%;
+    color: magenta;
+}
+.dataHeaderSmallX{
+    font-size: 75%;
+    font-weight: 900;
+    color: magenta;
+}
+
+#infoPane div.framedEntry{
+    margin-bottom: 5px;
+}
+
+span.field{
+    font-weight: 900;
+}
+
+span.date{
+    font-weight: 900;
+    font-style: italic;
+}
+
+div.hb span.date{
+    font-size: 85%;
+    font-weight: normal;
+}
+
+span.notes{
+    font-weight: normal;
+}
+
+
+span.action{
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+
+div.hb{
+    background-color: #EEEEEE;
+}
+
+div.dt{
+    padding-left: 10px;
+    font-size: 75%;
+}
+
+.historyList{
+    list-style: none;
+    margin: 0px;
+}
+
+.historyList li{
+    display: block;
+    width: 100%;
+    margin: 0px;
+    margin-top: 5px;
+}
+
+.historyListSubel{
+    margin: 0px;
+    margin-top: 5px;
+}
+
+
+div.dateHightLight{
+    display: block;
+    text-align: center;
+    font-weight: 900;
+    font-size: 100%;
+    color: blue;
+    background-color: #F7F7F7;
+    width: 100%;
+}
+
+.tenPercent{
+    width: 2%;
+}
+
+td.sparatorCell {
+    width: 10px;
+    border: 0;
+}
+td.dataHeader {
+    background: #EEEEEE;
+    font-size: 85%;
+}
+td.dataCell {
+    font-weight: 700;
+    font-size: 90%;
+}
+
+div.invisibleInput{
+    position: absolute;
+    top: 50px;
+    left: 15%;
+    width: 25%;
+    /*height: 250px;*/
+    background: white;
+    padding: 3px;
+    border-top: 3px gray;
+    border-left: 3px gray;
+    border-bottom: 3px black;
+    border-right: 3px black;
+}

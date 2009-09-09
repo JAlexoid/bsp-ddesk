@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="lt.bsprendimai.ddesk.dao.ProjectModule" table="project_modules">
+        <id column="id" name="id" type="java.lang.Integer">
+            <generator class="sequence">
+                <param name="sequence">project_modules_id_seq</param>
+            </generator>           
+        </id>
+        <property column="module" length="200" not-null="true" name="module" type="java.lang.String"/>
+        <property column="description" name="description" type="java.lang.String"/>
+        <property column="project" not-null="true" name="project" type="java.lang.Integer"/>
+    </class>
+</hibernate-mapping>

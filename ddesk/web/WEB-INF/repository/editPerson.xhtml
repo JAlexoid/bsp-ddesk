@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+<style type="text/css">
+<!--
+.dataHeader {
+}
+.dataCell {
+}
+.sparatorCell{}
+-->
+</style>
+    <body>
+
+        This text above will not be displayed.
+
+        <ui:composition>
+
+            <div>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle['application.person.name']}"/>:
+                        </td>
+                        <td>
+                            <h:inputText id="name" value="#{clientAccessor.person.name}" required="true" >                            </h:inputText>
+                            <h:message errorClass="error" id="nameMessages" for="name"/>
+                        </td>
+                        <td>
+                            <h:outputText value="#{bundle['application.person.position']}"/>
+                            :
+                        </td>
+                        <td>
+                            <h:inputText id="position" value="#{clientAccessor.person.position}" > </h:inputText>
+                            <h:message errorClass="error" id="positionMessages" for="position"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle['application.person.phoneNo']}"/>:
+                        </td>
+                        <td>
+                            <h:inputText id="phoneNo" value="#{clientAccessor.person.phoneNo}" >
+                                
+                            </h:inputText>
+                            <h:message errorClass="error" id="phoneNoMessages" for="phoneNo"/>
+                        </td>
+                        <td>
+                            <h:outputText value="#{bundle['application.person.email']}"/>
+                            :
+                        </td>
+                        <td>
+                            <h:inputText id="email" value="#{clientAccessor.person.email}" required="true" >
+                                <t:validateEmail/>
+                            </h:inputText>
+                            <h:message errorClass="error" id="emailMessages" for="email"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle['application.person.loginCode']}"/>:
+                        </td>
+                        <td colspan="3">
+                            <h:inputText id="loginCode" value="#{clientAccessor.person.loginCode}" required="true" >
+                                <f:validateLength maximum="50"/>
+                            </h:inputText>
+                            <h:message errorClass="error" id="loginCodeMessages" for="loginCode"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle['application.person.password']}"/>
+                            :
+                        </td>
+                        <td colspan="3">
+                            <h:inputSecret id="password" value="#{clientAccessor.pwd1}" > </h:inputSecret>
+                            <h:message errorClass="error" id="passwordMessages" for="password"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle['application.person.password2']}"/>:
+                        </td>
+                        <td colspan="3">
+                            <h:inputSecret id="password2" value="#{clientAccessor.pwd2}" >
+                                
+                            </h:inputSecret>
+                            <h:message errorClass="error" id="password2Messages" for="password2"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle['application.person.loginLevel']}"/>
+                            :
+                        </td>
+                        <td colspan="3">
+                            <h:selectOneMenu id="loginLevel" value="#{clientAccessor.person.loginLevel}" required="true" >
+                                <f:selectItems value="#{clientAccessor.personLevelSelect}" />
+                            </h:selectOneMenu>
+                            <h:message errorClass="error" id="loginLevelMessages" for="loginLevel"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="4">
+                            <h:outputText value="#{bundle['application.person.notes']}"/>:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <h:inputTextarea id="notes" rows="6" value="#{clientAccessor.person.notes}" style="width: 100%;}" >
+                                
+                            </h:inputTextarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <h:message errorClass="error" id="notesMessages" for="notes"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle['application.changeEmail.language']}"/>:
+                        </td>
+                        <td colspan="3">
+                            <h:selectOneMenu id="language" required="true" value="#{clientAccessor.language}" >
+                                <f:selectItems value="#{clientAccessor.languageSelect}" />
+                            </h:selectOneMenu>
+                            <h:message errorClass="error" id="languageMessages" for="language"/>
+                        </td>
+
+                    </tr>
+                </table>
+
+
+            </div>
+        </ui:composition>
+
+        This text below will also not be displayed.
+
+    </body>
+</html> 

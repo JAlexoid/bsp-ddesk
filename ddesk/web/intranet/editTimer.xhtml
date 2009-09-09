@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <body>
+        <ui:composition template="/templates/private.xhtml">
+            <f:loadBundle basename="messages" var="bundle"/>
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="editTimer"/>
+                </ui:include>
+            </ui:define>
+            <ui:define name="route">
+            </ui:define>
+            <ui:define name="content">
+                <h:form id="editPrio" >
+
+                    <h3 id="idea" title="Form"><h:outputText value="#{bundle['application.edit.timer']}"/></h3>
+                    <table style="width:100%;}">
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.timer.name']}"/>
+                            </td>
+                            <td class="dataCell">
+                                <h:inputText id="name" value="#{ticketAccess.timer.name}" required="true"/>
+                                <h:message errorClass="error" for="name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.timer.person']}"/>
+                            </td>
+                            <td class="dataCell">
+                                <h:selectOneMenu rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}" id="person" value="#{ticketAccess.timer.person}">
+                                    <f:selectItems value="#{clientAccessor.assignSelect}" />
+                                </h:selectOneMenu>
+                                <h:outputText value="#{userHandler.user.name}" rendered="#{userHandler.user.loginLevel == null || userHandler.user.loginLevel != 0}"/>
+                                <h:message errorClass="error" for="person"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.timer.start']}"/>
+                            </td>
+                            <td class="dataCell" >
+
+                            	<t:inputDate id="start" required="true" value="#{ticketAccess.timer.start}" type="both" popupCalendar="false" ampm="false" timeZone="#{userHandler.timeZone}"/>
+                            	<!--
+                                <t:inputText id="start" required="true" value="#{ticketAccess.timer.start}">
+                                    <f:convertDateTime pattern="yyyy.MM.dd HH.mm.ss" timeZone="#{userHandler.timeZone}"/>
+                                </t:inputText>
+ 								-->
+                                <h:message errorClass="error" for="start"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dataHeader">
+                                <h:outputText value="#{bundle['application.timer.finish']}"/>
+                            </td>
+                            <td class="dataCell" >
+                            	<t:inputDate id="finish" required="true" value="#{ticketAccess.timer.finish}" type="both" popupCalendar="false" ampm="false" timeZone="#{userHandler.timeZone}"/>
+
+                            	<!--
+                                <t:inputText id="finish" required="true" value="#{ticketAccess.timer.finish}">
+                                    <f:convertDateTime pattern="yyyy.MM.dd HH.mm.ss" timeZone="#{userHandler.timeZone}"/>
+                                </t:inputText>
+                                -->
+
+                                <h:message errorClass="error" for="finish"/>
+                            </td>
+                        </tr>
+                        <tr class="dataHeader">
+                            <td colspan="2">
+                                <h:outputText value="#{bundle['application.timer.description']}"/>:
+                            </td>
+                        </tr>
+                        <tr class="dataHeader">
+                            <td colspan="2" class="dataCell">
+                                <h:inputTextarea id="adescriptiona" value="#{ticketAccess.timer.description}" style="width: 100%; height: 150px;}" required="true" >
+                                </h:inputTextarea>
+                                <h:message errorClass="error" id="adescriptionaMessages" for="adescriptiona"/>
+                            </td>
+                        </tr>
+                        <tr class="dataHeader">
+                            <td colspan="2">
+                                <h:commandButton id="submit" action="#{ticketAccess.timer.update}" value="#{bundle['application.form.submitEdit']}" styleClass="button" />
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

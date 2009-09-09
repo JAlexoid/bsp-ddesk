@@ -1,0 +1,11 @@
+Pavadinimas: {name}
+Kas įrase: {personName}
+Įmone: {companyName}
+Irašo data: {reportDate}
+Prioritetas: {priorityName}
+Pastabos:
+----------------
+{requestNotes}
+----------------
+
+{history}

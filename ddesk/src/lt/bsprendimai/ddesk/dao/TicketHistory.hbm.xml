@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ <hibernate-mapping>
+    <class name="lt.bsprendimai.ddesk.dao.TicketHistory" table="tickethistory">
+        <id column="id" name="id" type="java.lang.Integer">
+            <generator class="sequence">
+                <param name="sequence">tickethistory_id_seq</param>
+            </generator>
+        </id>
+        <property column="ticket" length="4" name="ticket" not-null="true" type="java.lang.Integer"/>
+        <property column="changenotes" name="changeNotes" type="java.lang.String"/>
+        <property column="name" length="100" name="name" not-null="true" type="java.lang.String"/>
+        <property column="company" length="4" name="company" type="java.lang.Integer"/>
+        <property column="person" length="4" name="person" type="java.lang.Integer"/>
+        <property column="reportdate" length="8" name="reportDate" not-null="true" type="java.util.Date"/>
+        <property column="reportby" length="4" name="reportBy" type="java.lang.Integer"/>
+        <property column="description" name="description" type="java.lang.String"/>
+        <property column="status" length="4" name="status" not-null="true" type="java.lang.Integer"/>
+        <property column="acceptednotes" name="acceptedNotes" type="java.lang.String"/>
+        <property column="assigneddate" length="8" name="assignedDate" type="java.util.Date"/>
+        <property column="assignedto" length="4" name="assignedTo" type="java.lang.Integer"/>
+        <property column="assignedby" length="4" name="assignedBy" type="java.lang.Integer"/>
+        <property column="worktime" length="10" name="worktime" type="java.lang.Double"/>
+        <property column="additionaltime" length="10" name="additionalTime" type="java.lang.Double"/>
+        <property column="planeddate" length="8" name="planedDate" type="java.util.Date"/>
+        <property column="actualdate" length="8" name="actualDate" type="java.util.Date"/>
+        <property column="servicecode" length="20" name="serviceCode" type="java.lang.String"/>
+        <property column="priority" length="4" name="priority" type="java.lang.Integer"/>
+        <property column="type" length="4" name="type" not-null="true" type="java.lang.Integer"/>
+        <property column="resolution" name="resolution" type="java.lang.String"/>
+        <property column="dateclosed" length="8" name="dateClosed" type="java.util.Date"/>
+        <property column="closedby" length="4" name="closedBy" type="java.lang.Integer"/>
+        <property column="editdate" length="8" name="editDate" type="java.util.Date"/>
+        <property column="editby" length="4" name="editBy" type="java.lang.Integer"/>
+        <property column="notes" name="notes" type="java.lang.String"/>
+        <property column="notespublic" name="notesPublic" type="java.lang.String"/>
+        <property column="version" length="10" name="version" type="java.lang.Double"/>
+        <property column="project" length="4" name="project" type="java.lang.Integer"/>
+        <property column="module" length="4" name="module" type="java.lang.Integer"/>
+        <property column="severity" length="4" name="severity" type="java.lang.Integer"/>
+    </class>
+</hibernate-mapping>

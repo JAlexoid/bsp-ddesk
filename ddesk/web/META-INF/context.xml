@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/ddesk">
+    <Resource
+    auth="Container"
+    driverClassName="org.postgresql.Driver"
+    maxActive="10"
+    maxIdle="2"
+    maxWait="10000"
+    name="jdbc/ddesk"
+    password=""
+    type="javax.sql.DataSource"
+    url="jdbc:postgresql://localhost/ddesk"
+    username="postgres"/>
+</Context>

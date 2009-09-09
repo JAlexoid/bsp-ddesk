@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+        This text above will not be displayed.
+
+        <ui:composition>
+
+            <h4><h:outputText value="#{bundle['application.list.unassigned']}"/></h4>
+
+            <t:dataList value="#{ticketAccess.freeTicketList}" var="item">
+                <t:div styleClass="framedEntry">
+
+                    <h:outputText rendered="#{item.closedState}"
+                    styleClass="taskClosed" value="#{item.uniqueId}" />
+
+                    <h:outputText rendered="#{item.acceptedState}"
+                    styleClass="taskAccepted" value="#{item.uniqueId}" />
+
+                    <h:outputText rendered="#{item.newState}"
+                    styleClass="taskNew" value="#{item.uniqueId}" />
+
+                    &nbsp;
+                    <h:outputLink value="#{contextName}/intranet/viewTicket.jsf">
+                        <h:outputText value="#{item.reportDate}">
+                            <f:convertDateTime pattern="yyyy.MM.dd HH:mm" timeZone="#{userHandler.timeZone}"/>
+                        </h:outputText>
+                        <f:param name="ticketId" value="#{item.id}"/>
+                    </h:outputLink>
+
+                    <f:verbatim><br/></f:verbatim>
+                    <h:outputLink value="#{contextName}/intranet/viewTicket.jsf">
+                        <h:outputText value="#{item.name}"/>
+                        <f:param name="ticketId" value="#{item.id}"/>
+                    </h:outputLink>
+                    &nbsp;-&nbsp;
+                    <h:outputText value="#{item.descriptionTruncated}"/>
+                    <f:verbatim><br/><br/></f:verbatim>
+                </t:div>
+            </t:dataList>
+
+        </ui:composition>
+
+        This text below will also not be displayed.
+
+    </body>
+</html>

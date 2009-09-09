@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+        This text above will not be displayed.
+
+        <ui:composition>
+            <h:form>
+                #{bundle['application.qFeatureEntry']}
+                <br/>
+                <h:selectOneMenu id="project" value="#{ticketAccess.QProject}" >
+                    <f:selectItems value="#{projects.projects}" />
+                </h:selectOneMenu>
+                <h:selectOneMenu id="personName" value="#{ticketAccess.QPerson}">
+                    <f:selectItems value="#{clientAccessor.assignSelect}" />
+                </h:selectOneMenu>
+                <br/>
+                <h:inputTextarea value="#{ticketAccess.description}" required="true" style="width: 100%; height: 150px;}"/>
+                <h:commandButton action="#{ticketAccess.addQFeature}" value="#{bundle['application.form.submitCreate']}" styleClass="button" />
+            </h:form>
+        </ui:composition>
+
+        This text below will also not be displayed.
+
+    </body>
+</html>

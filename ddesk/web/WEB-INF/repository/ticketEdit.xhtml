@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+        This text above will not be displayed.
+
+        <ui:composition>
+
+            <h:inputHidden value="#{ticketAccess.id}"  />
+            <h:inputHidden value="#{ticketAccess.id}" rendered="#{!ticketAccess.selected.acceptedState and !ticketAccess.selected.closedState}" />
+            <input type="hidden" value="#{ticketAccess.id}" name="ticketId"/>
+            <h:outputText value="#{bundle['application.form.required']}"/><br/>
+
+            <t:div rendered="#{!ticketAccess.selected.acceptedState and !ticketAccess.selected.closedState}">
+                <table style="width: 100%;}" class="styled">
+                    <tr>
+                        <td width="30%">
+                            <h:outputText value="#{bundle['application.form.name']}" rendered="#{!ticketAccess.selected.acceptedState and !ticketAccess.selected.closedState}"/>*
+                        </td>
+                        <td width="70%">
+                            <h:inputText id="name" value="#{ticketAccess.selected.name}"  required="true" style="width: 98%;}" rendered="#{!ticketAccess.selected.acceptedState and !ticketAccess.selected.closedState}">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h:message  errorClass="error" id="nameMessages" for="name" rendered="#{!ticketAccess.selected.acceptedState and !ticketAccess.selected.closedState}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h:outputText value="#{bundle['application.form.notes']}" rendered="#{!ticketAccess.selected.acceptedState and !ticketAccess.selected.closedState}"/>*
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h:inputTextarea id="description" value="#{ticketAccess.selected.description}"  required="true" style="width: 98%; height: 150px;}" rendered="#{!ticketAccess.selected.acceptedState and !ticketAccess.selected.closedState}" >
+                            </h:inputTextarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h:message  errorClass="error" id="descriptionMessages" for="description" rendered="#{!ticketAccess.selected.acceptedState and !ticketAccess.selected.closedState}"/>
+                        </td>
+                    </tr>
+                </table>
+            </t:div>
+            <table style="width: 100%;}" class="styled">
+                <tr>
+                    <td width="30%">
+                        <h:outputText value="#{bundle['application.form.priority']}"/>*
+                    </td>
+                    <td width="70%">
+                        <h:selectOneMenu id="priority" value="#{ticketAccess.selected.priority}" style="width: 98%;}">
+                            <f:selectItems value="#{ticketParameters.prioritySelect}" />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h:message id="priorityMessages" for="priority"/>
+                    </td>
+                </tr>
+            </table>
+        </ui:composition>
+
+        This text below will also not be displayed.
+
+    </body>
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+
+<hibernate-configuration>
+
+    <session-factory>
+        <!-- properties -->
+        <property name="connection.datasource">java:comp/env/jdbc/ddesk</property>
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property>
+
+
+
+        <!--property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost/ddesk</property>
+        <property name="hibernate.connection.username">ddesk</property>
+        <property name="hibernate.connection.password">555</property>
+
+        <property name="hibernate.dbcp.maxActive">10</property>
+        <property name="hibernate.dbcp.maxIdle">5</property>
+        <property name="hibernate.dbcp.maxWait">-1</property>
+        <property name="hibernate.dbcp.whenExhaustedAction">1</property>
+        <property name="hibernate.dbcp.testOnBorrow">true</property>
+        <property name="hibernate.dbcp.testOnReturn">false</property>
+        <property name="hibernate.dbcp.maxOpenPreparedStatements">50</property>
+        <property name="hibernate.dbcp.validationQuery">SELECT 1+1</property-->
+
+        <!-- mapping files -->
+        <mapping resource="lt/bsprendimai/ddesk/dao/Companies.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/CompanyContracts.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/CompanyPersons.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/EventTypes.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/Severities.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/Priorities.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/Statuses.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/TicketHistory.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/Tickets.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/TicketInfo.hbm.xml"/>
+
+        <mapping resource="lt/bsprendimai/ddesk/dao/Permissions.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/PersonInfo.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/ProjectInfo.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/ProjectModules.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/Projects.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/XmppLogs.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/Timekeeping.hbm.xml"/>
+        <mapping resource="lt/bsprendimai/ddesk/dao/Certificates.hbm.xml"/>
+
+
+
+        <class-cache class="lt.bsprendimai.ddesk.dao.EventType" usage="read-write"/>
+        <class-cache class="lt.bsprendimai.ddesk.dao.Priority" usage="read-write"/>
+        <class-cache class="lt.bsprendimai.ddesk.dao.Status" usage="read-write"/>
+        <class-cache class="lt.bsprendimai.ddesk.dao.Severity" usage="read-write"/>
+
+    </session-factory>
+</hibernate-configuration>

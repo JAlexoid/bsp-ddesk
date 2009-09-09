@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <head>
+        <title>#{bundle['application.name']}</title>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta http-equiv="imagetoolbar" content="no" />
+        <t:stylesheet path="/businesslogin.css"/>
+        <t:stylesheet path="/styleNotices.css"/>
+    </head>
+
+    <body>
+        <div id="container" style="border: 1px blue solid;}">
+
+
+            <f:loadBundle basename="messages" var="bundle"/>
+            <f:loadBundle basename="version" var="version"/>
+
+
+            <div id="top">
+                <p align="center"><h:outputText value="#{bundle['application.title.company.description']}"/></p>
+            </div>
+
+            <div id="topright">
+                <h4 title="DDesk">#{bundle['application.name']}</h4>
+                <p title="List"><h:outputText value="#{bundle['application.section.login']}"/></p>
+                <a href="?lang=LT">LT</a> |
+                <a href="?lang=EN">EN</a> |
+                <a href="?lang=RU">RU</a>
+            </div>
+
+            <div class="cl"></div>
+
+            <div id="gallery">
+                <img src="1.jpg" alt="Image of calculator" width="226" height="140"/>
+                <img src="2.jpg" alt="Image of Laptop" width="220" height="140"/>
+                <img src="3.jpg" alt="Image of network cable" width="215" height="140"/>
+            </div>
+
+
+
+            <table id="containerTable">
+                <tr>
+                    <td id="news">
+
+                    </td>
+                    <td id="content">
+                        <div id="menu">
+
+                        </div>
+                        <div id="pad">
+                            <!-- CONTENT -->
+                            <h:form id="loginForm">
+                                <input type="hidden" value="#{sessionScope.selectedLocaleCode}" name="lang"/>
+                                <h3 title="Sidebar"><h:outputText value="#{bundle['application.login']}"/></h3>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="#{bundle['application.login.user']}"/>
+                                        </td>
+                                        <td>
+                                            <h:inputText id="login" value="#{userHandler.user.loginCode}" required="true" size="10">
+                                            </h:inputText>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <h:message errorClass="error" id="loginMessages" for="login"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="#{bundle['application.login.passowrd']}"/>
+                                        </td>
+                                        <td>
+                                            <h:inputSecret id="password" value="#{userHandler.user.password}" required="true" size="10">
+                                            </h:inputSecret>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <h:message errorClass="error" id="passwordMessages" for="password"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <h:commandButton id="submit" action="#{userHandler.login}" value="#{bundle['application.form.login']}" styleClass="button" >
+                                            </h:commandButton>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="errorContainer">
+                                                <h:messages globalOnly="true" errorClass="errorPart" fatalClass="errorPart" layout="table"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h:form>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+
+            <div id="footer">
+               &copy; <a href="http://www.bsprendimai.lt/">Baltijos Sprendimai</a> (original author <a href="http://www.activelogic.eu/">Aleksandr Panzin</a>) #{version['version']} (#{version['build']})
+            </div>
+
+        </div>
+    </body>
+</html>

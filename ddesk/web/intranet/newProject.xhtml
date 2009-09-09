@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+
+        <ui:composition template="/templates/private.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+            <ui:define name="menu">
+                <ui:include src="/WEB-INF/repository/privateMenu.xhtml" >
+                    <ui:param name="page" value="newProject"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="content">
+                <!-- CONTENT -->
+                <h:form rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}">
+                    
+                    <table style="width:100%;}">
+                        <tr>
+                            <td width="20%" class="dataHeader">
+                                #{bundle['application.view.project']}
+                            </td>
+                            <td  class="dataCell">
+                                <h:inputText value="#{projects.selected.name}" id="name" required="true"/>
+                                <h:message errorClass="error" for="name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" class="dataHeader">
+                                #{bundle['application.view.projectCode']}
+                            </td>
+                            <td  class="dataCell">
+                                <h:inputText value="#{projects.selected.code}" id="code" required="true"/>
+                                <h:message errorClass="error" for="code"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" class="dataHeader">
+                                #{bundle['application.view.version']}
+                            </td>
+                            <td  class="dataCell">
+                                <h:inputText value="#{projects.selected.version}" id="version">
+                                </h:inputText>
+                                <h:message errorClass="error" for="version"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" class="dataHeader">
+                                #{bundle['application.view.company']}
+                            </td>
+                            <td  class="dataCell">
+                                <h:selectOneMenu id="company" value="#{projects.selected.company}" >
+                                    <f:selectItems value="#{clientAccessor.companies}" />
+                                </h:selectOneMenu>
+                                <h:message errorClass="error" for="company"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" class="dataHeader">
+                                #{bundle['application.projects.manager']}
+                            </td>
+                            <td  class="dataCell">
+                                <h:selectOneMenu id="manager" value="#{projects.selected.manager}">
+                                    <f:selectItems value="#{clientAccessor.assignSelect}" />
+                                </h:selectOneMenu>
+                                <h:message errorClass="error" for="manager"/>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <h:commandButton action="#{projects.selected.add}" value="#{bundle['application.form.submitNew']}" rendered="#{userHandler.user.loginLevel != null and userHandler.user.loginLevel == 0}" />
+                </h:form>
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

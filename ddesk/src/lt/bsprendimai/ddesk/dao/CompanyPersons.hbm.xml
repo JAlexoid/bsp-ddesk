@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="lt.bsprendimai.ddesk.dao.Person" table="companypersons">
+        <id column="id" name="id" type="java.lang.Integer">
+            <generator class="sequence">
+                <param name="sequence">companypersons_id_seq</param>
+            </generator>
+        </id>
+        <property column="company" length="4" name="company" type="java.lang.Integer"/>
+        <property column="name" length="250" name="name" not-null="true" type="java.lang.String"/>
+        <property column="position" length="200" name="position" type="java.lang.String"/>
+        <property column="phoneno" length="50" name="phoneNo" type="java.lang.String"/>
+        <property column="email" length="100" name="email" type="java.lang.String"/>
+        <property column="logincode" length="20" name="loginCode" type="java.lang.String"/>
+        <property column="password" length="20" name="password" type="java.lang.String"/>
+        <property column="loginlevel" length="4" name="loginLevel" type="java.lang.Integer"/>
+        <property column="notes" name="notes" type="java.lang.String"/>
+        <property column="language" name="language" not-null="true" type="java.lang.String"/>
+        <property column="lastlogin" name="lastLogin" not-null="true" type="java.util.Date"/>
+        <property column="search_filter" name="searchFilter" length="65535" type="java.lang.String"/>
+    </class>
+</hibernate-mapping>

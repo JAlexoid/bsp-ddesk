@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk">
+    <body>
+
+
+        <ui:composition template="/templates/public.xhtml">
+
+            <f:loadBundle basename="messages" var="bundle"/>
+
+            <ui:define name="content">
+
+
+                <h:outputLink value="changePassword.jsf" >
+                    <h:outputText value="#{bundle['application.form.changePassword']}"/>
+                </h:outputLink>
+
+                <h3 title="Form"><h:outputText value="#{bundle['application.form.changeEmail']}"/></h3>
+                <h:form id="changeEmail">
+
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle['application.changeEmail.personEmail']}"/>:
+                            </td>
+                            <td>
+                                <h:inputText id="email" value="#{userHandler.user.email}" required="true" style="width: 98%;}">
+                                    <t:validateEmail/>
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h:message errorClass="error" for="email"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle['application.changeEmail.phoneNo']}"/>:
+                            </td>
+                            <td>
+                                <h:inputText id="phone" value="#{userHandler.user.phoneNo}" size="20" >
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h:message errorClass="error" for="phone"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle['application.changeEmail.language']}"/>:
+                            </td>
+                            <td>
+                                <h:selectOneMenu id="language" required="true" value="#{userHandler.language}" >
+                                    <f:selectItems value="#{clientAccessor.languageSelect}" />
+                                </h:selectOneMenu>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h:message errorClass="error" for="language"/>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <h:commandButton id="submit" action="#{userHandler.changeEmail}" value="#{bundle['application.form.submitEditInfo']}" styleClass="button" />
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
