@@ -19,6 +19,7 @@
 	<property name="content" location="web" />
 	<property name="lib" location="web/WEB-INF/lib" />
 	<property name="exlib" location="lib" />
+	<property name="distro-package" location="dist/bsp-ddesk.zip" />
 
 	<property file="deploy-tomcat.properties" />
 
@@ -173,8 +174,13 @@
 
 	<!-- ==================== Javadoc Target ================================== -->
 
-	  <target name="javadoc" depends="compile"
+	  <target name="javadoc" depends="compile,javadoci"
 	   description="Create Javadoc API documentation">
+	  </target>
+
+	<!-- ==================== Javadoc Internal Target ================================== -->
+
+	  <target name="javadoci">
 
 	    <mkdir dir="${docs}/api"/>
 	    <javadoc sourcepath="${src}"
@@ -185,6 +191,18 @@
 
 	  </target>
 
+	<!-- ==================== Full Package ================================== -->
 
+	  <target name="distropackage" depends="dist,javadoci" description="Full distributable package, without build libraries">
+
+	  	<delete file="${distro-package}" />
+	    <zip destfile="${distro-package}">
+	        <zipfileset dir="${docs}" prefix="docs"/>
+	    	<zipfileset dir="." includes="*.txt" prefix="docs"/>
+	    	<zipfileset dir="." includes="*.sql" prefix="docs"/>
+	    	<zipfileset dir="${dist}" includes="**/*" prefix="ddesk"/>
+	    </zip>
+
+	  </target>
 
 </project>
